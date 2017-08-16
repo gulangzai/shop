@@ -64,13 +64,13 @@
 						<div class="pull-left">
 							<select id="skin-colorpicker" class="hidden">
 								<option data-class="default" value="#438EB9"
-									<c:if test="${user.SKIN =='default' }">selected</c:if>>#438EB9</option>
+									<c:if test="${user.FSkin =='default' }">selected</c:if>>#438EB9</option>
 								<option data-class="skin-1" value="#222A2D"
-									<c:if test="${user.SKIN =='skin-1' }">selected</c:if>>#222A2D</option>
+									<c:if test="${user.FSkin =='skin-1' }">selected</c:if>>#222A2D</option>
 								<option data-class="skin-2" value="#C6487E"
-									<c:if test="${user.SKIN =='skin-2' }">selected</c:if>>#C6487E</option>
+									<c:if test="${user.FSkin =='skin-2' }">selected</c:if>>#C6487E</option>
 								<option data-class="skin-3" value="#D0D0D0"
-									<c:if test="${user.SKIN =='skin-3' }">selected</c:if>>#D0D0D0</option>
+									<c:if test="${user.FSkin =='skin-3' }">selected</c:if>>#D0D0D0</option>
 							</select>
 						</div>
 						<span>&nbsp; 选择皮肤</span>

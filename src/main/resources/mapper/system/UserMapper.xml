@@ -33,6 +33,31 @@
 		<result column="SKIN" property="SKIN"/>
 	</resultMap>
 	
+	<resultMap type="TbUser" id="tbuserResultMap">
+		<id column="F_USER_ID" property="FUserId"/>
+		<result column="F_UserName" property="FUserName"/>
+		<result column="F_Password" property="FPassword"/>
+		<result column="F_Email" property="FEmail"/>
+		<result column="F_Mobile" property="FMobile"/> 
+		<result column="F_SKIN" property="FSkin"/>  
+	</resultMap>
+	
+	<select id="getUserAndRoleById" parameterType="String" resultMap="tbuserResultMap">
+		select  u.F_USER_ID,
+				u.F_UserName,  
+				u.F_Password,
+				u.F_Email,
+				u.F_Mobile,
+				u.F_SKIN, 
+				r.F_ROLE_ID
+		from TB_USER u 
+		left join TB_USER_ROLE r 
+		on u.F_USER_ID=r.F_USER_ID 
+		where u.F_Deleted=1
+		and u.F_USER_ID=#{USER_ID}
+	</select>
+	
+	
 	<!-- 判断用户名和密码 -->
 	<select id="getUserInfo" parameterType="User" resultMap="userResultMap">
 		select * from SYS_USER 
@@ -45,22 +70,7 @@
 		</if>
 	</select>
 	
-	<select id="getUserAndRoleById" parameterType="String" resultMap="userAndRoleResultMap">
-		select  u.USER_ID,
-				u.USERNAME,
-				u.NAME,
-				u.RIGHTS as USER_RIGHTS,
-				u.PASSWORD,
-				u.SKIN,
-				r.ROLE_ID,
-				r.ROLE_NAME,
-				r.RIGHTS as ROLE_RIGHTS 
-		from SYS_USER u 
-		left join SYS_ROLE r 
-		on u.ROLE_ID=r.ROLE_ID 
-		where u.STATUS=0 
-		and u.USER_ID=#{USER_ID}
-	</select>
+	
 
 	<update id="updateLastLogin" parameterType="User">
 		update SYS_USER set 

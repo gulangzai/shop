@@ -11,6 +11,7 @@
 
 	<typeAliases>
 		<typeAlias type="com.lanbao.entity.User" alias="User"/>
+		<typeAlias type="com.lanbao.entity.TbUser" alias="TbUser"/>
 		<typeAlias type="com.lanbao.entity.Role" alias="Role"/>
 		<typeAlias type="com.shop.system.tbmenu.vo.TbMenu" alias="Menu"/>
 		<typeAlias type="com.lanbao.base.PageData" alias="pd"/>

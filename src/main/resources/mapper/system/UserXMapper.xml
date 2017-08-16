@@ -21,15 +21,15 @@
 	
 	<!-- 判断用户名和密码 -->
 	<select id="getUserInfo" parameterType="pd" resultType="pd" useCache="false"><!-- insert update delete (flushCache="true/false") -->
-		select * from SYS_USER 
+		select * from TB_USER 
 		where 1=1
 		<if test="USERNAME != null and PASSWORD != null">
 	  	and	(
-	  		(USERNAME = #{USERNAME} and PASSWORD = #{PASSWORD})
+	  		(F_UserName = #{USERNAME} and F_Password = #{PASSWORD})
 	  		or
-	  		(EMAIL = #{USERNAME} and PASSWORD = #{PASSWORD})
+	  		(F_Email = #{USERNAME} and F_Password = #{PASSWORD})
 	  		or
-	  		(NUMBER = #{USERNAME} and PASSWORD = #{PASSWORD})
+	  		(F_Mobile = #{USERNAME} and F_Password = #{PASSWORD})
 	  		)
 		</if>
 		<if test="USER_ID != null and USER_ID != ''">
