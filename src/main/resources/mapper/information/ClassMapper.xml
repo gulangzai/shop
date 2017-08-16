@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ClassMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into TB_PICTURES(
+			TITLE,	
+			NAME,	
+			PATH,	
+			CREATETIME,	
+			MASTER_ID,	
+			BZ,	
+			PICTURES_ID
+		) values (
+			#{TITLE},	
+			#{NAME},	
+			#{PATH},	
+			#{CREATETIME},	
+			#{MASTER_ID},	
+			#{BZ},	
+			#{PICTURES_ID}
+		)
+	</insert>
+	
+	<!-- 新增-->
+	<insert id="add" parameterType="pd">
+		insert into TB_CLASS( 
+			F_ClsName,	
+			F_Status,	
+			F_Order,	
+			F_PClsId,
+			F_CODE,
+			F_LABEL
+		) values (
+			#{F_ClsName},	
+			#{F_Status},	
+			#{F_Order},	
+			#{F_PClsId},
+			#{F_CODE},
+			#{F_LABEL}
+		)
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from TB_CLASS
+		where 
+			F_ClsId = #{F_ClsId}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  TB_CLASS    
+			<trim prefix="SET" suffixOverrides=",">    
+				<if test="F_ClsName != null and F_ClsName != ''">
+				F_ClsName = #{F_ClsName},
+				</if>
+				<if test="F_PClsId != null and F_PClsId != ''">
+				F_PClsId = #{F_PClsId},
+				</if>
+				<if test="F_Status != null and F_Status != ''">
+				F_Status = #{F_Status},
+				</if>
+				<if test="F_ICON != null and F_ICON != ''">
+				F_ICON=#{F_ICON},
+				</if>
+				<if test="F_WAP_ICON != null and F_WAP_ICON != ''">
+				F_WAP_ICON=#{F_WAP_ICON},
+				</if>
+				<if test="F_CODE != null and F_CODE != ''">
+				F_CODE=#{F_CODE},
+				</if>
+				<if test="F_LABEL != null and F_LABEL != ''">
+				F_LABEL=#{F_LABEL}
+				</if>
+			</trim>
+			where  F_ClsId = #{F_ClsId}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			F_ClsId,	
+			F_ClsName,	
+			F_Status,	
+			F_Order,	
+			F_PClsId,
+			F_CODE,
+			F_LABEL
+		from 
+			TB_CLASS
+		where 
+			F_ClsId = #{F_ClsId}
+	</select>
+	
+	
+	<!-- 列表 -->
+<!-- 	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				a.TITLE,	
+				a.NAME,	
+				a.PATH,	
+				a.CREATETIME,	
+				a.MASTER_ID,	
+				a.BZ,	
+				a.PICTURES_ID
+		from 
+				TB_PICTURES a
+		where 1 = 1
+		<if test="pd.KEYW != null and pd.KEYW != ''">关键词检索
+			and
+				(
+					 a.TITLE LIKE CONCAT(CONCAT('%', #{pd.KEYW}),'%')
+					 or 
+					 a.NAME LIKE CONCAT(CONCAT('%', #{pd.KEYW}),'%') 
+					 or
+					 a.PICTURES_ID LIKE CONCAT(CONCAT('%', #{pd.KEYW}),'%')
+					 or
+					 a.MASTER_ID LIKE CONCAT(CONCAT('%', #{pd.KEYW}),'%')
+				)
+		</if>
+	</select> -->
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+				a.F_ClsId as id,	
+				a.F_ClsName as name, 
+				a.F_Status as F_Status,
+				a.F_PClsId as pId,	  
+				a.F_ICON AS F_ICON,
+				a.F_Order as F_Order,
+				a.F_WAP_ICON as F_WAP_ICON,
+				a.F_CODE as F_CODE,
+				a.F_LABEL as F_LABEL
+				
+		from 
+				tb_class a    
+	</select>
+	
+	<select id="listAllByParent" parameterType="pd" resultType="pd">
+		select
+				a.F_ClsId as id,	
+				a.F_ClsName as name, 
+				a.F_Status as F_Status,
+				a.F_PClsId as pId,	  
+				a.F_ICON AS F_ICON,
+				a.F_Order as F_Order,
+				a.F_WAP_ICON as F_WAP_ICON,
+				a.F_CODE as F_CODE,
+				a.F_LABEL as F_LABEL
+		from 
+				tb_class a where 1 = 1  AND F_Status = 1 
+			  <choose>
+			        <when test="F_PClsId !=null and F_PClsId != ''">
+			             AND F_PClsId = #{F_PClsId} 
+			        </when>
+			        <otherwise>
+			           AND F_PClsId is null
+			        </otherwise>
+              </choose> 
+				 order by F_Order desc
+	</select>
+	
+	
+		<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				a.F_ClsId as fClsId,	
+				a.F_ClsName as fClsName, 
+				a.F_Status as fStatus,
+				a.F_PClsId as fPClsId,
+				a.F_ICON as fICON ,
+				a.F_Order as fOrder,
+				a.F_WAP_ICON as F_WAP_ICON,
+				a.F_CODE as F_CODE,
+				a.F_LABEL as F_LABEL
+		from 
+				tb_class a where 1=1 
+				<if test="pd.F_ClsId !=null and  pd.F_ClsId !=''">
+				    AND a.F_PClsId = #{pd.F_ClsId}
+				</if>  
+				order by F_Order desc
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from TB_PICTURES
+		where 
+			PICTURES_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量获取 -->
+	<select id="getAllById" parameterType="String" resultType="pd">
+		select PATH from TB_PICTURES
+		where 
+			PICTURES_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</select>
+	
+	<!-- 删除图片 -->
+	<update id="delTp" parameterType="pd">
+		update  TB_PICTURES
+			set 
+				PATH			= ''
+			where 
+				PICTURES_ID = #{PICTURES_ID}
+	</update>
+</mapper>

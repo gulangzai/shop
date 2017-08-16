@@ -1,0 +1,16 @@
+input[readonly]{color:#939192;background:#FFFFFF!important;cursor:default}
+input[type=checkbox].ace.disabled+.lbl::before, input[type=checkbox].ace:disabled+.lbl::before, input[type=checkbox].ace[disabled]+.lbl::before, input[type=radio].ace.disabled+.lbl::before, input[type=radio].ace:disabled+.lbl::before, input[type=radio].ace[disabled]+.lbl::before {
+background-color: #FFFFFF!important;
+border-color: #CCC!important;
+box-shadow: none!important;
+color: #BBB;
+}
+
+.ui-jqgrid .ui-jqgrid-labels th {
+/*border-right: 1px solid #E1E1E1!important;*/
+text-align: center!important;
+}
+/* ie
+
+input{background-color:expression((this.readOnly && this.readOnly == true)? "#efefef":"");}  
+*/

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table name="tb_address" desc="收货地址" key="F_ADDRESS_UID">
+   <column>
+       <name>F_DIQU</name>
+       <desc>地区</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+    <column>
+       <name>F_USER_ID</name>
+       <desc>用户账号</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>F_ADDRESS_DETAIL</name>
+       <desc>详细地址</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>F_POSTAL_CODE</name>
+       <desc>邮政编码</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+   
+    <column>
+       <name>F_RECEIVE_NAME</name>
+       <desc>收件人</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+   
+   <column>
+       <name>F_RECEIVE_MOBILE</name>
+       <desc>手机号</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column> 
+     
+    <column>
+       <name>CREATE_DATE</name>
+       <desc>创建时间</desc>
+       <isRequired>Y</isRequired>
+       <type>date</type>
+   </column> 
+  
+</table>

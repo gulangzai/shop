@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TbAddressMapper">
+	 
+	
+		<!-- 新增-->
+	<insert id="save" parameterType="pd"  keyProperty="F_ADDRESS_UID" useGeneratedKeys="true">
+		    
+		insert into tb_address (
+							      F_DIQU,  
+							      F_USER_ID,  
+							      F_ADDRESS_DETAIL,  
+							      F_POSTAL_CODE,  
+							      F_RECEIVE_NAME,  
+							      F_RECEIVE_MOBILE,  
+					          CREATE_DATE
+		) values (
+							       #{F_DIQU},  
+							       #{F_USER_ID},  
+							       #{F_ADDRESS_DETAIL},  
+							       #{F_POSTAL_CODE},  
+							       #{F_RECEIVE_NAME},  
+							       #{F_RECEIVE_MOBILE},  
+					             #{CREATE_DATE}
+		)
+		
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="ID">
+	          SELECT LAST_INSERT_ID() AS id
+	    </selectKey>
+	    
+	</insert>
+	 
+	 
+    <!-- datalistPage -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		 select
+					      a.F_DIQU,  
+					      a.F_USER_ID,  
+					      a.F_ADDRESS_DETAIL,  
+					      a.F_POSTAL_CODE,  
+					      a.F_RECEIVE_NAME,  
+					      a.F_RECEIVE_MOBILE,  
+			             date_format(a.CREATE_DATE,'%Y-%c-%d %h:%i:%s') as CREATE_DATE,
+				a.F_ADDRESS_UID
+		from 
+				tb_address a
+				<if test = 'pd.search=="true"'>
+				   where 
+				   F_ADDRESS_UID 
+				   like  CONCAT(CONCAT('%', #{pd.keyword, jdbcType=VARCHAR}),'%') 
+				</if>
+	</select>
+	
+	 
+	 	<!--findById -->
+	<select id="findById" parameterType="pd" resultType="pd">
+	
+	SELECT
+					      tbAddress.F_DIQU,  
+					      tbAddress.F_USER_ID,  
+					      tbAddress.F_ADDRESS_DETAIL,  
+					      tbAddress.F_POSTAL_CODE,  
+					      tbAddress.F_RECEIVE_NAME,  
+					      tbAddress.F_RECEIVE_MOBILE,  
+			             date_format(tbAddress.CREATE_DATE,'%Y-%c-%d %h:%i:%s') as CREATE_DATE,
+				tbAddress.F_ADDRESS_UID,
+	(select PATH From tb_pictures tbpictures where tbpictures.TABLE_UID_VALUE = tbAddress.F_ADDRESS_UID limit 0,1) AS PATH
+FROM
+	tb_address tbAddress
+WHERE  F_ADDRESS_UID = #{F_ADDRESS_UID}
+	 
+	</select>
+	
+	
+	<!-- �޸� -->
+	<update id="edit" parameterType="pd">
+		update  tb_address
+			set 
+					      F_DIQU = #{F_DIQU},
+					      F_USER_ID = #{F_USER_ID},
+					      F_ADDRESS_DETAIL = #{F_ADDRESS_DETAIL},
+					      F_POSTAL_CODE = #{F_POSTAL_CODE},
+					      F_RECEIVE_NAME = #{F_RECEIVE_NAME},
+					      F_RECEIVE_MOBILE = #{F_RECEIVE_MOBILE},
+					      CREATE_DATE = #{CREATE_DATE},
+		        F_ADDRESS_UID = #{ F_ADDRESS_UID}
+		     where 
+			    F_ADDRESS_UID = #{ F_ADDRESS_UID}
+				 
+	</update>
+	
+    <!-- ɾ��-->
+	<delete id="delete" parameterType="pd">
+		delete from  tb_address
+		where 
+			F_ADDRESS_UID = #{ F_ADDRESS_UID}
+	</delete>
+	
+	
+ 
+	
+</mapper>

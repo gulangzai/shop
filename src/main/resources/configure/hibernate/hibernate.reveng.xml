@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-name="carousel" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_catalog" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_class" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_classappend" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_collect" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_evaluate" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_login_log" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_order" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_product" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_shopcard" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_sousou" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_title" match-catalog="shop"></table-filter>
+	<table-filter match-name="t_user" match-catalog="shop"></table-filter>
+	<table catalog="shop" name="carousel">
+		<column name="id"></column>
+		<column name="url"></column>
+		<column name="address"></column>
+	</table>
+</hibernate-reverse-engineering>

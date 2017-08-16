@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TbCarouselMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd"  keyProperty="F_Id" useGeneratedKeys="true">
+		    
+		insert into TB_CAROUSEL(
+			F_Url,	
+			F_Address
+		) values (
+			#{F_Url},
+			#{F_Address}
+		)
+		
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="F_Id">
+	          SELECT LAST_INSERT_ID() AS F_Id
+	    </selectKey>
+	    
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from TB_CAROUSEL
+		where 
+			F_Id = #{F_Id}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  TB_CAROUSEL
+			set 
+				F_Url = #{F_Url},
+				F_Address = #{F_Address}, 
+				F_Id = #{F_Id}
+			    where 
+				F_Id = #{F_Id}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			* 
+		from 
+			TB_CAROUSEL   
+		where 
+			  F_Id = #{F_Id}
+	</select>
+	
+	<!-- 通过F_CLSID获取数据 -->
+	<select id="findByClassId" parameterType="page" resultType="pd">
+	
+		select 
+			F_PRODUCTNAME,	
+			F_PRODUCTDESC,	
+			F_PRICE,	
+			F_CLSID,	
+			F_ISSPECIAL,	
+			F_PRODUCT_ID,
+			tbpictures.PATH as PATH
+		from 
+			TB_CAROUSEL tbproduct,TB_PICTURES tbpictures
+		where 
+			tbproduct.F_ProductPic = tbpictures.PICTURES_ID   AND F_CLSID = #{pd.F_ClsId}
+	</select>
+	
+	  <select id="findNewHot" parameterType="page" resultType="pd">
+   select 
+			F_PRODUCTNAME,	
+			F_PRODUCTDESC,	
+			F_PRICE,	
+			F_CLSID,	
+			F_ISSPECIAL,	
+			F_PRODUCT_ID,
+            tb_pictures.PATH as F_PATH
+		from 
+			TB_CAROUSEL   inner join tb_pictures on TB_CAROUSEL.F_ProductPic=tb_pictures.PICTURES_ID  
+	  where F_Status = 0   order by F_Degree desc   limit 0,3  
+   </select>
+   
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="JPage" resultType="pd">
+		select
+		        a.F_Id,
+				a.F_Url,	
+				a.F_Address
+		from 
+				tb_carousel a
+		where 1=1  
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+		        a.F_PRODUCT_ID,
+				a.F_ProductName,	
+				a.F_ProductPic,	
+				a.F_ProductDesc,	
+				a.F_Price,	
+				a.F_ClsId,	
+				a.F_ProductTime,
+				a.F_Status,
+				a.F_IsSpecial,
+				a.F_Degree
+		from 
+				TB_CAROUSEL a
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from TB_CAROUSEL
+		where 
+			F_Id in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>

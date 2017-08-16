@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- 
+
+  This mapping demonstrates 
+
+-->
+
+<hibernate-mapping package="cn.lanbao.com.jopo"> 
+    <class name="User" table="t_user">
+        <id name="id" type="int">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME" type="string"/>
+        <property name="age" column="AGE" type="int"></property>
+        <property name="sex" column="sex" type="string"></property>
+        <property name="birthday" type="timestamp" column="birthday"></property>
+        <property name="createTime" type="timestamp" column="createTime"></property>
+    </class>	
+ 
+</hibernate-mapping>

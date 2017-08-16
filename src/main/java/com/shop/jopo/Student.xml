@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE sqlMap       
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"       
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">  
+    
+    <sqlMap namespace="TTArea">
+    	
+         <!-- <resultMap class="Student" id="result">
+              <result property="id" column="id" columnIndex="1"/>
+              <result property="name" column="name" columnIndex="2"/>
+              <result property="age" column="age" columnIndex="3"/> 
+         </resultMap> -->
+         <typeAlias alias="Student" type="cn.lanbao.com.jopo.Student"/>
+         
+         <select id="selectAllStudents" resultClass="Student">
+               select *from Student
+         </select>
+         
+         <insert id="insertStudent" parameterClass="Student">
+             insert into student(id,name,age)values(#id#,#name#,#age#)
+         </insert>
+         
+    </sqlMap>

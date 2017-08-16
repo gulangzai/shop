@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BuFileMapper">
+	 
+	
+		<!-- 新增-->
+	<insert id="save" parameterType="pd"  keyProperty="ID" useGeneratedKeys="true">
+		    
+		insert into bu_file (
+							      TARGET_TABLE,  
+							      TARGET_COL,  
+							      TARGET_UID,  
+							      FILE_TYPE,  
+							      FILE_TYPE_NAME,  
+							      DESCRIPTION,  
+							      ATTACHMENT_UID,  
+							      ENABLED,  
+							      CREATE_DATE,  
+					          CREATE_USER
+		) values (
+							       #{TARGET_TABLE},  
+							       #{TARGET_COL},  
+							       #{TARGET_UID},  
+							       #{FILE_TYPE},  
+							       #{FILE_TYPE_NAME},  
+							       #{DESCRIPTION},  
+							       #{ATTACHMENT_UID},  
+							       #{ENABLED},  
+							       #{CREATE_DATE},  
+					             #{CREATE_USER}
+		)
+		
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="ID">
+	          SELECT LAST_INSERT_ID() AS id
+	    </selectKey>
+	    
+	</insert>
+	 
+	 
+    <!-- datalistPage -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		 select
+					      a.TARGET_TABLE,  
+					      a.TARGET_COL,  
+					      a.TARGET_UID,  
+					      a.FILE_TYPE,  
+					      a.FILE_TYPE_NAME,  
+					      a.DESCRIPTION,  
+					      a.ATTACHMENT_UID,  
+					      a.ENABLED,  
+			             date_format(a.CREATE_DATE,'%Y-%c-%d %h:%i:%s') as CREATE_DATE,
+					      a.CREATE_USER,  
+				a.ID
+		from 
+				bu_file a
+				<if test = 'pd.search=="true"'>
+				   where 
+				   BRAND 
+				   like  CONCAT(CONCAT('%', #{pd.keyword, jdbcType=VARCHAR}),'%') 
+				</if>
+	</select>
+	
+	 
+	 	<!--findById -->
+	<select id="findById" parameterType="pd" resultType="pd">
+	
+	SELECT
+					      buFile.TARGET_TABLE,  
+					      buFile.TARGET_COL,  
+					      buFile.TARGET_UID,  
+					      buFile.FILE_TYPE,  
+					      buFile.FILE_TYPE_NAME,  
+					      buFile.DESCRIPTION,  
+					      buFile.ATTACHMENT_UID,  
+					      buFile.ENABLED,  
+			             date_format(buFile.CREATE_DATE,'%Y-%c-%d %h:%i:%s') as CREATE_DATE,
+					      buFile.CREATE_USER,  
+				buFile.ID,
+	(select PATH From tb_pictures tbpictures where tbpictures.TABLE_UID_VALUE = buFile.ID limit 0,1) AS PATH
+FROM
+	bu_file buFile
+WHERE  ID = #{ID}
+	 
+	</select>
+	
+	
+	<!-- �޸� -->
+	<update id="edit" parameterType="pd">
+		update  bu_file
+			set 
+					      TARGET_TABLE = #{TARGET_TABLE},
+					      TARGET_COL = #{TARGET_COL},
+					      TARGET_UID = #{TARGET_UID},
+					      FILE_TYPE = #{FILE_TYPE},
+					      FILE_TYPE_NAME = #{FILE_TYPE_NAME},
+					      DESCRIPTION = #{DESCRIPTION},
+					      ATTACHMENT_UID = #{ATTACHMENT_UID},
+					      ENABLED = #{ENABLED},
+					      CREATE_DATE = #{CREATE_DATE},
+					      CREATE_USER = #{CREATE_USER},
+		        ID = #{ ID}
+		     where 
+			    ID = #{ ID}
+				 
+	</update>
+	
+    <!-- ɾ��-->
+	<delete id="delete" parameterType="pd">
+		delete from  bu_file
+		where 
+			ID = #{ ID}
+	</delete>
+	
+	
+ 
+	
+</mapper>

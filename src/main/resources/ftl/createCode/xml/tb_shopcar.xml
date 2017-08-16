@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table name="tb_shopcar" desc="购物车管理" key="F_SHOPCARDID">
+   <column>
+       <name>F_SHOPCARDID</name>
+       <desc>购物车编号</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+    <column>
+       <name>F_USER_ID</name>
+       <desc>用户账号</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>F_PRODUCT_ID</name>
+       <desc>商品id</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>F_SinglePrice</name>
+       <desc>商品单价</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+   
+    <column>
+       <name>F_BuyCount</name>
+       <desc>商品购买数量</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+   
+   <column>
+       <name>F_Cost</name>
+       <desc>商品总价值</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column> 
+     
+   
+    <column>
+       <name>CREATE_DATE</name>
+       <desc>创建时间</desc>
+       <isRequired>Y</isRequired>
+       <type>date</type>
+   </column> 
+   
+   
+   
+    
+   
+   
+   
+   
+   
+</table>

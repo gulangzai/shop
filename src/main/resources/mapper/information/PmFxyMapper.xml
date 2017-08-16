@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PmFxyMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="com.shop.business.pmfxy.vo.PmFxyVO"  keyProperty="FXY_UID" useGeneratedKeys="true">
+		    
+		insert into PM_FXY(
+			PROJECT_UID,	
+			FXY_TYPE,
+			QUYU,	
+			WXYS,	
+			WXYS_FL,	
+			SHIGU,
+			YIJIN_YUAN,
+			CUOSHI,
+			BEGIN_DATE,
+			END_DATE,
+			XUHAO,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_DATE
+		) values (
+			#{PROJECT_UID},
+			#{FXY_TYPE},	
+			#{QUYU},	
+			#{WXYS},	
+			#{WXYS_FL},	
+			#{SHIGU},
+			#{YIJIN_YUAN},
+			#{CUOSHI},
+			#{BEGIN_DATE}, 
+			#{END_DATE}, 
+			#{XUHAO},
+			#{CREATE_USER},
+			#{CREATE_DATE},
+			#{UPDATE_DATE}
+		)
+		
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="FXY_UID">
+	          SELECT LAST_INSERT_ID() AS id
+	    </selectKey>
+	    
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="com.shop.business.pmfxy.vo.PmFxyVO">
+		delete from PM_FXY
+		where 
+			FXY_UID = #{FXY_UID}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="com.shop.business.pmfxy.vo.PmFxyVO">  
+		update  PM_FXY
+			<trim prefix="set" suffixOverrides=",">
+			 <if test="PROJECT_UID !=null and PROJECT_UID !='' ">
+				PROJECT_UID = #{PROJECT_UID},
+			 </if>
+			  <if test="FXY_TYPE !=null and FXY_TYPE !='' ">
+				FXY_TYPE = #{FXY_TYPE},
+				</if>
+				 <if test="QUYU !=null and QUYU !='' ">
+				QUYU = #{QUYU},
+				</if>
+				 <if test="WXYS !=null and WXYS !='' ">
+				WXYS = #{WXYS},
+				</if>
+				 <if test="WXYS_FL !=null and WXYS_FL !='' ">
+				WXYS_FL = #{WXYS_FL},
+				</if>
+				 <if test="SHIGU !=null and SHIGU !='' ">
+				SHIGU=#{SHIGU},
+				</if>
+				 <if test="YIJIN_YUAN !=null and YIJIN_YUAN !='' ">
+				YIJIN_YUAN=#{YIJIN_YUAN},
+				</if>
+				 <if test="CUOSHI !=null and CUOSHI !='' ">
+				CUOSHI=#{CUOSHI},
+				</if>
+				 <if test="BEGIN_DATE !=null and BEGIN_DATE !='' ">
+				BEGIN_DATE=#{BEGIN_DATE},
+				</if>
+				 <if test="END_DATE !=null and END_DATE !='' ">
+				END_DATE=#{END_DATE},
+				</if>
+				 <if test="XUHAO !=null and XUHAO !='' ">
+				XUHAO=#{XUHAO},
+				</if>
+			  <if test="CREATE_USER !=null and CREATE_USER !='' ">
+				CREATE_USER=#{CREATE_USER},
+			  </if>
+			  <if test="CREATE_DATE !=null and CREATE_DATE !='' ">
+				CREATE_DATE=#{CREATE_DATE},
+			  </if>
+			  <if test="UPDATE_DATE !=null and UPDATE_DATE !='' ">
+				UPDATE_DATE=#{UPDATE_DATE}
+			  </if>
+			  </trim>
+			    where 
+				FXY_UID = #{FXY_UID}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+	
+	SELECT
+	F_PRODUCTNAME,
+	F_PRODUCTDESC,
+	F_PRICE,
+	F_CLSID,
+	F_ISSPECIAL,
+	F_PRODUCT_ID,
+	F_Status,
+	F_Express,
+	F_REAL_PRICE,
+	F_Number,
+	(select F_ClsName From tb_class tc where tc.F_ClsId = tbproduct.F_CLSID)as F_CLSNAME,
+	(select PATH From tb_pictures tbpictures where tbpictures.TABLE_UID_VALUE = tbproduct.F_PRODUCT_ID limit 0,1) AS PATH
+FROM
+	TB_PRODUCT tbproduct
+WHERE  F_PRODUCT_ID = #{F_PRODUCT_ID}
+	 
+	</select>
+	
+	<!-- 通过F_CLSID获取数据 -->
+	<select id="findByClassId" parameterType="page" resultType="pd">
+	
+		select 
+			F_PRODUCTNAME,	
+			F_PRODUCTDESC,	
+			F_PRICE,	
+			F_CLSID,	
+			F_ISSPECIAL,	
+			F_PRODUCT_ID,
+			tbpictures.PATH as PATH
+		from 
+			TB_PRODUCT tbproduct,TB_PICTURES tbpictures
+		where 
+			tbproduct.F_ProductPic = tbpictures.PICTURES_ID   AND F_CLSID = #{pd.F_ClsId}
+	</select>
+	
+	  <select id="findNewHot" parameterType="page" resultType="pd">
+  
+	    select 
+			F_PRODUCTNAME,	
+			F_PRODUCTDESC,	
+			F_PRICE,	
+			F_CLSID,	
+			F_ISSPECIAL,	
+			F_PRODUCT_ID,
+			F_Number,
+			F_Express,
+       (select PATH from tb_pictures where TABLE_UID_VALUE=tp.F_PRODUCT_ID LIMIT 0,1) as F_PATH
+		from 
+			tb_product tp  where F_Status = 0  order by F_Degree desc  limit 0,3 
+			
+   </select>
+   
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				IFNULL(a.FXY_UID,"") as FXY_UID,	
+				IFNULL(a.PROJECT_UID,"") as PROJECT_UID,	
+				IFNULL(a.FXY_TYPE,"") as FXY_TYPE,	
+				IFNULL(a.QUYU,"") as QUYU,
+				IFNULL(a.WXYS,"") as WXYS,	
+				IFNULL(a.WXYS_FL,"") as WXYS_FL,
+				IFNULL(a.SHIGU,"") as SHIGU,
+				IFNULL(a.YIJIN_YUAN,"") as YIJIN_YUAN,
+				IFNULL(a.CUOSHI,"") as CUOSHI,
+				IFNULL(a.BEGIN_DATE,"") as BEGIN_DATE,
+				IFNULL(a.END_DATE,"") as END_DATE,
+				IFNULL(a.XUHAO,"") as XUHAO,
+				IFNULL(a.CREATE_USER,"") as CREATE_USER,
+				IFNULL(a.CREATE_DATE,"") as CREATE_DATE,
+				IFNULL(a.UPDATE_DATE,"") as UPDATE_DATE
+		from 
+				PM_FXY a
+		where 1=1 
+		<if test="pd.keyword != null and pd.keyword != ''"><!-- 关键词检索 -->
+			and  ${pd.keyword}  
+		</if>
+		<if test="pd.order != null and pd.order != ''"><!-- order -->
+			   ${pd.order}  
+		</if> 
+	</select>
+	
+		<!-- 列表 -->
+	<select id="datalistPageCount" parameterType="page" resultType="int">
+		select
+				count(*) as count
+		from 
+				PM_FXY a
+		where 1=1 
+		<if test="pd.keyword != null and pd.keyword != ''"><!-- 关键词检索 -->
+			and  ${pd.keyword}  
+		</if>
+		<if test="pd.order != null and pd.order != ''"><!-- order -->
+			   ${pd.order}  
+		</if> 
+	</select>
+	
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+		        a.F_PRODUCT_ID,
+				a.F_ProductName,	
+				a.F_ProductPic,	
+				a.F_ProductDesc,	
+				a.F_Price,	
+				a.F_ClsId,	
+				a.F_ProductTime,
+				a.F_Status,
+				a.F_IsSpecial,
+				a.F_Degree
+		from 
+				TB_PRODUCT a
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from TB_PRODUCT
+		where 
+			F_PRODUCT_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>

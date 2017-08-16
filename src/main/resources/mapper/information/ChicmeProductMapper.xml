@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ChicmeProductMapper">
+	 
+	
+		<!-- 新增-->
+	<insert id="save" parameterType="pd"  keyProperty="ID" useGeneratedKeys="true">
+		    
+		insert into chicme_product (
+							      brand,  
+							      category,  
+							      color,  
+							      description,  
+							      price,  
+							      size,  
+					          sku
+		) values (
+							       #{brand},  
+							       #{category},  
+							       #{color},  
+							       #{description},  
+							       #{price},  
+							       #{size},  
+					             #{sku}
+		)
+		
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="ID">
+	          SELECT LAST_INSERT_ID() AS id
+	    </selectKey>
+	    
+	</insert>
+	 
+	 
+    <!-- datalistPage -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		 select
+					      a.brand,  
+					      a.category,  
+					      a.color,  
+					      a.description,  
+					      a.price,  
+					      a.size,  
+					      a.sku,  
+				a.ID
+		from 
+				chicme_product a
+				<if test = 'pd.search=="true"'>
+				   where 
+				   BRAND 
+				   like  CONCAT(CONCAT('%', #{pd.keyword, jdbcType=VARCHAR}),'%') 
+				</if>
+	</select>
+	
+	 
+	 	<!--findById -->
+	<select id="findById" parameterType="pd" resultType="pd">
+	
+	SELECT
+					      chicmeProduct.brand,  
+					      chicmeProduct.category,  
+					      chicmeProduct.color,  
+					      chicmeProduct.description,  
+					      chicmeProduct.price,  
+					      chicmeProduct.size,  
+					      chicmeProduct.sku,  
+				chicmeProduct.ID,
+	(select PATH From tb_pictures tbpictures where tbpictures.TABLE_UID_VALUE = chicmeProduct.ID limit 0,1) AS PATH
+FROM
+	chicme_product chicmeProduct
+WHERE  ID = #{ID}
+	 
+	</select>
+	
+	
+	<!-- �޸� -->
+	<update id="edit" parameterType="pd">
+		update  chicme_product
+			set 
+					      brand = #{brand},
+					      category = #{category},
+					      color = #{color},
+					      description = #{description},
+					      price = #{price},
+					      size = #{size},
+					      sku = #{sku},
+		        ID = #{ ID}
+		     where 
+			    ID = #{ ID}
+				 
+	</update>
+	
+    <!-- ɾ��-->
+	<delete id="delete" parameterType="pd">
+		delete from  chicme_product
+		where 
+			ID = #{ ID}
+	</delete>
+	
+	
+ 
+	
+</mapper>

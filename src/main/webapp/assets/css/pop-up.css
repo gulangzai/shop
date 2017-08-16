@@ -1,0 +1,153 @@
+* {
+  font-family: 'corpoaregular', Microsoft Yahei, SimSun, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+}
+.pop_title {
+  background: #2A3442;
+  height: 50px;
+  padding: 0 20px 0 20px;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+}
+.pop_title img {
+  float: right;
+  margin-top: 15px;
+  cursor: pointer;
+}
+#information {
+  overflow: auto;
+  padding-top: 20px;
+}
+#information form {
+  padding: 0 30px 0 0;
+}
+#information .row {
+  margin-bottom: 20px;
+  position: relative;
+}
+#information .row .line1 {
+  border-bottom: 1px solid #D8D8D8;
+}
+#information .row span {
+  color: #413D3D;
+  font-weight: 500;
+  margin-top: 5px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: right;
+  font-size: 14px;
+  padding-right: 5px;
+}
+#information .row span b {
+  color: red;
+  margin: 2px 5px 0 0;
+  display: inline-block;
+  vertical-align: top;
+}
+#information .row select {
+  height: 30px;
+  border: 1px solid #BDBFBF;
+  outline: none;
+  border-radius: 5px;
+  padding-left: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("../img/xialajiantou1.png") no-repeat 99%;
+  color: #77787A;
+  font-size: 14px;
+}
+#information .row input {
+  border: 1px solid #BDBFBF;
+  border-radius: 5px;
+  outline: none;
+  height: 30px;
+  font-size: 14px;
+  color: #77787A;
+  padding-left: 10px;
+}
+#information .row input.width1 {
+  width: 40%;
+}
+#information .row div.inputbox {
+  position: relative;
+}
+#information .row div.inputbox b {
+  position: absolute;
+  right: 15px;
+  height: 30px;
+  line-height: 30px;
+  font-weight: normal;
+}
+#information .row > textarea {
+  border: 1px solid #BDBFBF;
+  border-radius: 5px;
+  outline: none;
+  padding-left: 10px;
+  resize: none;
+  height: 75px;
+  font-size: 14px;
+}
+#information .row th > i,
+#information .row td > i,
+#information .row p > i {
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+  width: 17px;
+  height: 17px;
+  display: inline-block;
+  vertical-align: middle;
+}
+#information .row i.check {
+  background: url('../img/check.png') no-repeat;
+}
+#information .row i.check_click {
+  background: url('../img/check_click.png') no-repeat;
+}
+#information .rowbox {
+  width: 100%;
+}
+#information .rowbox span {
+  color: #413D3D;
+  font-weight: 500;
+  display: inline-block;
+  vertical-align: top;
+  text-align: right;
+  font-size: 14px;
+  padding-right: 5px;
+}
+#information .rowbox .rowboxDiv {
+  display: inline-block;
+  border: 1px solid #eee;
+  height: 110px;
+  margin-bottom: 20px;
+}
+#information .rowbox > p span {
+  color: #413D3D;
+  font-weight: 500;
+  margin-top: 5px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: right;
+  font-size: 14px;
+}
+#information .rowbox > p span b {
+  color: red;
+  margin: 2px 5px 0 0;
+  display: inline-block;
+  vertical-align: top;
+}
+#information .rowbox > p input {
+  border: 1px solid #BDBFBF;
+  border-radius: 5px;
+  outline: none;
+  height: 30px;
+  font-size: 14px;
+  color: #77787A;
+  padding-left: 10px;
+}

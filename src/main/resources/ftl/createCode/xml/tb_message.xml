@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table name="tb_message" desc="我的消息" key="F_MESSAGE_UID">
+ 
+   
+    <column>
+       <name>F_USER_ID</name>
+       <desc>用户账号</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>F_TITLE</name>
+       <desc>主题</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>F_CONTENT</name>
+       <desc>内容</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+    
+    <column>
+       <name>F_STATUS</name>
+       <desc>状态</desc>
+       <isRequired>N</isRequired>
+       <type>int</type>
+   </column> 
+   
+   
+ 
+     
+    <column>
+       <name>F_CREATE_DATE</name>
+       <desc>创建时间</desc>
+       <isRequired>Y</isRequired>
+       <type>date</type>
+   </column> 
+  
+</table>

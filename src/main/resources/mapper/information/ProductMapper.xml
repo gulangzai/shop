@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper"> 
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into TB_PICTURES(
+			TITLE,	
+			NAME,	
+			PATH,	
+			CREATETIME,	
+			MASTER_ID,	
+			BZ,	
+			PICTURES_ID
+		) values (
+			#{TITLE},	
+			#{NAME},	
+			#{PATH},	
+			#{CREATETIME},	
+			#{MASTER_ID},	
+			#{BZ},	
+			#{PICTURES_ID}
+		)
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from TB_PICTURES
+		where 
+			PICTURES_ID = #{PICTURES_ID}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  TB_PICTURES
+			set 
+				TITLE = #{TITLE},
+				PATH = #{PATH},
+				<if test="NAME != null and NAME != ''">
+				NAME = #{NAME},
+				</if>
+				MASTER_ID = #{MASTER_ID},
+				BZ = #{BZ},
+			PICTURES_ID = PICTURES_ID
+			where 
+				PICTURES_ID = #{PICTURES_ID}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			TITLE,	
+			NAME,	
+			PATH,	
+			CREATETIME,	
+			MASTER_ID,	
+			BZ,	
+			PICTURES_ID
+		from 
+			TB_PICTURES
+		where 
+			PICTURES_ID = #{PICTURES_ID}
+	</select>
+	
+	
+   
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				a.F_ProductId as id,	
+				a.F_ProductName as name,	
+				a.F_ProductDesc as productDesc,	
+				a.F_Price as price,	
+				a.F_Status as status
+		from 
+				t_product a
+		where 1 = 1  
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+				a.F_ClsId as id,	
+				a.F_ClsName as name, 
+				a.F_PClsId as pId	  
+		from 
+				t_class a
+	</select>
+	
+		<select id="list" parameterType="pd" resultType="pd">
+		select
+				a.F_ClsId as fClsId,	
+				a.F_ClsName as fClsName, 
+				a.F_PClsId as fPClsId,
+				a.F_Status as fStatus  
+		from 
+				t_class a
+				<if test="FCLSID !=null and  FCLSID !=''">
+				    where a.F_PClsId = #{FCLSID}
+				</if> 
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from TB_PICTURES
+		where 
+			PICTURES_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量获取 -->
+	<select id="getAllById" parameterType="String" resultType="pd">
+		select PATH from TB_PICTURES
+		where 
+			PICTURES_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</select>
+	
+	<!-- 删除图片 -->
+	<update id="delTp" parameterType="pd">
+		update  TB_PICTURES
+			set 
+				PATH			= ''
+			where 
+				PICTURES_ID = #{PICTURES_ID}
+	</update>
+</mapper>

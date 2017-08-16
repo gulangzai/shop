@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TbOrderMapper">
+	 
+	
+		<!-- 新增-->
+	<insert id="save" parameterType="pd"  keyProperty="F_ORDER_UID" useGeneratedKeys="true">
+		    
+		insert into tb_order (
+							      F_OrderSeries,  
+							      F_USER_ID,  
+							      F_PRODUCT_ID,  
+							      F_SinglePrice,  
+							      F_BuyCount,  
+							      F_Cost,  
+							      F_Message,  
+							      F_Status,  
+					          CREATE_DATE
+		) values (
+							       #{F_OrderSeries},  
+							       #{F_USER_ID},  
+							       #{F_PRODUCT_ID},  
+							       #{F_SinglePrice},  
+							       #{F_BuyCount},  
+							       #{F_Cost},  
+							       #{F_Message},  
+							       #{F_Status},  
+					             #{CREATE_DATE}
+		)
+		
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="F_ORDER_UID">
+	          SELECT LAST_INSERT_ID() AS id
+	    </selectKey>
+	    
+	</insert>
+	 
+	 
+    <!-- datalistPage -->
+	<select id="datalistPage" parameterType="JPage" resultType="pd">
+		 select
+					      a.F_OrderSeries,  
+					      a.F_USER_ID,  
+					      a.F_PRODUCT_ID,  
+					      a.F_SinglePrice,  
+					      a.F_BuyCount,  
+					      a.F_Cost,  
+					      a.F_Message,  
+					      a.F_Status,  
+			             date_format(a.CREATE_DATE,'%Y-%c-%d %h:%i:%s') as CREATE_DATE,
+				a.F_ORDER_UID
+		from 
+				tb_order a
+				<if test = 'search'>
+				   where 
+				   F_PRODUCT_ID 
+				   like  CONCAT(CONCAT('%', #{keyword, jdbcType=VARCHAR}),'%') 
+				</if>
+	</select>
+	
+	 
+	 	<!--findById -->
+	<select id="findById" parameterType="pd" resultType="pd">
+	
+	SELECT
+					      tbOrder.F_OrderSeries,  
+					      tbOrder.F_USER_ID,  
+					      tbOrder.F_PRODUCT_ID,  
+					      tbOrder.F_SinglePrice,  
+					      tbOrder.F_BuyCount,  
+					      tbOrder.F_Cost,  
+					      tbOrder.F_Message,  
+					      tbOrder.F_Status,  
+			             date_format(tbOrder.CREATE_DATE,'%Y-%c-%d %h:%i:%s') as CREATE_DATE,
+				tbOrder.F_ORDER_UID,
+	(select PATH From tb_pictures tbpictures where tbpictures.TABLE_UID_VALUE = tbOrder.F_ORDER_UID limit 0,1) AS PATH
+FROM
+	tb_order tbOrder
+WHERE  F_ORDER_UID = #{F_ORDER_UID}
+	 
+	</select>
+	
+	
+	<!-- �޸� -->
+	<update id="edit" parameterType="pd">
+		update  tb_order
+			set 
+					      F_OrderSeries = #{F_OrderSeries},
+					      F_USER_ID = #{F_USER_ID},
+					      F_PRODUCT_ID = #{F_PRODUCT_ID},
+					      F_SinglePrice = #{F_SinglePrice},
+					      F_BuyCount = #{F_BuyCount},
+					      F_Cost = #{F_Cost},
+					      F_Message = #{F_Message},
+					      F_Status = #{F_Status},
+					      CREATE_DATE = #{CREATE_DATE},
+		        F_ORDER_UID = #{ F_ORDER_UID}
+		     where 
+			    F_ORDER_UID = #{ F_ORDER_UID}
+				 
+	</update>
+	
+    <!-- ɾ��-->
+	<delete id="delete" parameterType="pd">
+		delete from  tb_order
+		where 
+			F_ORDER_UID = #{ F_ORDER_UID}
+	</delete>
+	
+	
+ <!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from TB_ORDER
+		where 
+			F_OrderSeries in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>

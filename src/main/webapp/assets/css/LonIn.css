@@ -1,0 +1,146 @@
+* {
+  font-family: 'corpoaregular', Microsoft Yahei, SimSun, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+}
+.loginBox {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: url('../img/login_bg.png') no-repeat;
+}
+.loginBox .loginBoxContent {
+  width: 1025px;
+  margin: 150px auto 0;
+}
+.loginBox .loginBoxContent h1 {
+  text-align: center;
+  color: #1A2D49;
+  margin-bottom: 140px;
+  font-weight: 500;
+}
+.loginBox .loginBoxContent .login {
+  border-radius: 5px;
+  background-color: rgba(133, 150, 170, 0.6);
+  filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#668596aa, aa, endcolorstr=#668596aa, aa);
+  width: 350px;
+  height: 40px;
+  margin: 0 auto 30px;
+  padding: 5px;
+}
+.loginBox .loginBoxContent .login img {
+  vertical-align: text-bottom;
+  margin: 0 5px;
+}
+.loginBox .loginBoxContent .login input {
+  background: transparent;
+  border-width: 0;
+  outline: none;
+  color: #fff;
+  height: 30px;
+  font-size: 20px;
+  width: 85%;
+}
+.loginBox .loginBoxContent .login input::-webkit-input-placeholder {
+  color: #fff;
+}
+.loginBox .loginBoxContent input[type='submit'] {
+  border-radius: 5px;
+  background-color: #2A3442;
+  width: 350px;
+  height: 40px;
+  margin: 0 auto 30px;
+  padding: 5px;
+  color: #fff;
+  border-width: 0;
+  display: block;
+  font-size: 20px;
+  cursor: pointer;
+}
+#code {
+  position: fixed;
+  bottom: 15%;
+  right: 0;
+  z-index: 2;
+  filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#b22a3442, 42, endcolorstr=#b22a3442, 42);
+  background-color: rgba(42, 52, 66, 0.8);
+}
+.codeBox {
+  position: relative;
+  width: 70px;
+  height: 80px;
+}
+.bg_code {
+  width: 290px;
+  height: 200px;
+  position: absolute;
+  left: -290px;
+  top: -30px;
+  visibility: hidden;
+  background: url('../img/app-kuang.png') no-repeat;
+  background-size: 290px 150px;
+}
+.AndroidBox,
+.IosBox {
+  width: 50%;
+  float: left;
+}
+.bg_code > span {
+  position: absolute;
+  bottom: 20px;
+  left: 36px;
+  color: #2E3A4B;
+  font-weight: bold;
+}
+#Android_img {
+  position: relative;
+  left: 35%;
+  top: 22px;
+  width: 58%;
+  height: 35%;
+}
+.AndroidTitel {
+  position: absolute;
+  top: 53%;
+  left: 58px;
+  color: #2E3A4B;
+  font-weight: bold;
+}
+#Ios_img {
+  position: relative;
+  left: 8%;
+  top: 22px;
+  width: 58%;
+  height: 35%;
+}
+.IosTitel {
+  position: absolute;
+  top: 53%;
+  right: 70px;
+  color: #2E3A4B;
+  font-weight: bold;
+}
+#android_icon,
+#ios_icon {
+  width: 30px;
+  height: 30px;
+  margin: 15px 0 5px 20px;
+}
+#code p {
+  width: 100%;
+  text-align: center;
+}
+#code p a {
+  color: #FFC80A;
+  font-size: 12px;
+  text-decoration: none;
+}
+#android,
+#ios {
+  color: #262D37;
+}

@@ -1,0 +1,300 @@
+* {
+  font-family: 'corpoaregular', Microsoft Yahei, SimSun, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+.pop_title {
+  background: #2A3442;
+  height: 50px;
+  padding: 0 20px 0 20px;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 35px;
+  img {
+    float: right;
+    margin-top: 15px;
+    cursor: pointer;
+  }
+}
+
+#information {
+  height: 600px;
+  overflow: auto;
+  #informationBox1, #informationBox2, #informationBox3, #informationBox4 {
+    //border-bottom: 1px solid #D8D8D8;
+    //width: 90%;
+    //margin: 0 auto 20px;
+  }
+  form{
+    padding:0 30px 0 0;
+  }
+  .row{
+    margin-bottom: 20px;
+    position:relative;
+    .line1{
+      border-bottom: 1px solid #D8D8D8;
+    }
+    span {
+      color: #413D3D;
+      font-weight: 500;
+      margin-top: 5px;
+      display: inline-block;
+      vertical-align: top;
+      text-align: right;
+      font-size: 14px;
+      padding-right: 5px;
+      b {
+        color: red;
+        margin: 2px 5px 0 0;
+        display: inline-block;
+        vertical-align: top;
+      }
+    }
+    select {
+      height: 30px;
+      border: 1px solid #BDBFBF;
+      outline: none;
+      border-radius: 5px;
+      padding-left: 10px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: url("../img/xialajiantou1.png") no-repeat 99%;
+      color: #77787A;
+      font-size: 14px;
+    }
+    input {
+      border: 1px solid #BDBFBF;
+      border-radius: 5px;
+      outline: none;
+      height: 30px;
+      font-size: 14px;
+      color: #77787A;
+      padding-left: 10px;
+    }
+    input.width1 {
+      width: 40%;
+    }
+    div.inputbox{
+      position:relative;
+      b{
+        position: absolute;
+        right:15px;
+        height:30px;
+        line-height: 30px;
+        font-weight: normal;
+      }
+    }
+    >textarea {
+      border: 1px solid #BDBFBF;
+      border-radius: 5px;
+      outline: none;
+      padding-left: 10px;
+      resize: none;
+      height: 75px;
+      font-size: 14px;
+    }
+    th>i,td>i,p>i {
+      margin-right: 5px;
+      position: relative;
+      top: 4px;
+      width: 17px;
+      height: 17px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    i.check {
+      background: url('../img/check.png') no-repeat;
+    }
+    i.check_click {
+      background: url('../img/check_click.png') no-repeat;
+    }
+  }
+  //.informationBoxLeft {
+  //  //width: 40%;
+  //  //margin: 0 3%;
+  //  //border-bottom: 1px solid #D8D8D8;
+  //  //display: inline-block;
+  //  .row{
+  //
+  //  }
+    p {
+      //margin-bottom: 20px;
+      //font-size: 14px;
+      //span {
+      //  color: #413D3D;
+      //  font-weight: 500;
+      //  margin-top: 5px;
+      //  display: inline-block;
+      //  vertical-align: top;
+      //  text-align: right;
+      //  font-size: 14px;
+      //  padding-right: 5px;
+      //  b {
+      //    color: red;
+      //    margin: 2px 5px 0 0;
+      //    display: inline-block;
+      //    vertical-align: top;
+      //  }
+      //}
+      //select {
+      //  height: 30px;
+      //  border: 1px solid #BDBFBF;
+      //  outline: none;
+      //  border-radius: 5px;
+      //  padding-left: 10px;
+      //  -webkit-appearance: none;
+      //  -moz-appearance: none;
+      //  background: url("../img/xialajiantou1.png") no-repeat 290px;
+      //  color: #77787A;
+      //  font-size: 14px;
+      //}
+      //input {
+      //  border: 1px solid #BDBFBF;
+      //  border-radius: 5px;
+      //  outline: none;
+      //  height: 30px;
+      //  font-size: 14px;
+      //  color: #77787A;
+      //  padding-left: 10px;
+      //}
+      //input.width1 {
+      //  width: 40%;
+      //}
+      //textarea {
+      //  border: 1px solid #BDBFBF;
+      //  border-radius: 5px;
+      //  outline: none;
+      //  padding-left: 10px;
+      //  resize: none;
+      //  height: 75px;
+      //  font-size: 14px;
+      //}
+      //i {
+      //  margin-right: 5px;
+      //  position: relative;
+      //  top: 4px;
+      //  width: 17px;
+      //  height: 17px;
+      //  display: inline-block;
+      //  vertical-align: middle;
+      //}
+      //i.check {
+      //  background: url('../img/check.png') no-repeat;
+      //}
+      //i.check_click {
+      //  background: url('../img/check_click.png') no-repeat;
+      //}
+    }
+  //}
+  //.informationBoxRight {
+    //width: 40%;
+    //margin: 0 3%;
+    //display: inline-block;
+    //vertical-align: top;
+    //border-bottom: 1px solid #D8D8D8;
+    //p {
+    //  margin-bottom: 20px;
+    //  font-size: 14px;
+    //  span {
+    //    color: #413D3D;
+    //    font-weight: 500;
+    //    margin-top: 5px;
+    //    display: inline-block;
+    //    vertical-align: top;
+    //    text-align: right;
+    //    font-size: 14px;
+    //    padding-right: 5px;
+    //    b {
+    //      color: red;
+    //      margin: 2px 5px 0 0;
+    //      display: inline-block;
+    //      vertical-align: top;
+    //    }
+    //  }
+    //  select {
+    //    height: 30px;
+    //    border: 1px solid #BDBFBF;
+    //    outline: none;
+    //    border-radius: 5px;
+    //    padding-left: 10px;
+    //    -webkit-appearance: none;
+    //    -moz-appearance: none;
+    //    background: url("../img/xialajiantou1.png") no-repeat 290px;
+    //    color: #77787A;
+    //    font-size: 14px;
+    //  }
+    //  input {
+    //    border: 1px solid #BDBFBF;
+    //    border-radius: 5px;
+    //    outline: none;
+    //    height: 30px;
+    //    font-size: 14px;
+    //    color: #77787A;
+    //    padding-left: 10px;
+    //  }
+    //  input.bg1 {
+    //    background: #D8D8D8;
+    //  }
+    //  textarea {
+    //    border: 1px solid #BDBFBF;
+    //    border-radius: 5px;
+    //    outline: none;
+    //    padding-left: 10px;
+    //    resize: none;
+    //    height: 75px;
+    //    font-size: 14px;
+    //    width: 65%;
+    //  }
+    //}
+  //}
+  .rowbox {
+    width: 100%;
+    span{
+      color: #413D3D;
+      font-weight: 500;
+      display: inline-block;
+      vertical-align: top;
+      text-align: right;
+      font-size: 14px;
+      padding-right:5px;
+    }
+    .rowboxDiv{
+      display: inline-block;
+      border:1px solid #eee;
+      height:110px;
+      margin-bottom: 20px;
+      //padding-left: 10px;
+    }
+    >p {
+      span {
+        color: #413D3D;
+        font-weight: 500;
+        margin-top: 5px;
+        display: inline-block;
+        vertical-align: top;
+        text-align: right;
+        font-size: 14px;
+        b {
+          color: red;
+          margin: 2px 5px 0 0;
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+      input {
+        border: 1px solid #BDBFBF;
+        border-radius: 5px;
+        outline: none;
+        height: 30px;
+        font-size: 14px;
+        color: #77787A;
+        padding-left: 10px;
+      }
+    }
+  }
+}

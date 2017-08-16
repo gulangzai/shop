@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="scsl" name="scsl" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="新反馈" name="新反馈" activiti:exclusive="false" activiti:candidateGroups="4,6">
+      <extensionElements>
+        <activiti:formProperty id="yijian" name="整改意见" type="enum" required="true">
+          <activiti:value id="yijiejue" name="已解决"></activiti:value>
+          <activiti:value id="daizhenggai" name="待整改"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="新反馈"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="新反馈" targetRef="exclusivegateway1"></sequenceFlow>
+    <userTask id="待整改" name="待整改" activiti:candidateGroups="5">
+      <extensionElements>
+        <activiti:formProperty id="yijian" name="整改意见" type="enum" required="true">
+          <activiti:value id="zhenggaizhong" name="整改中"></activiti:value>
+          <activiti:value id="yizhenggai" name="已整改"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="yzgcds" name="已整改测点数" type="long" default="0"></activiti:formProperty>
+        <activiti:formProperty id="huifu" name="描述" type="string"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="exclusivegateway1" targetRef="待整改">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='daizhenggai'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="整改中" name="整改中" activiti:candidateGroups="5">
+      <extensionElements>
+        <activiti:formProperty id="yijian" name="审批意见" type="enum" required="true">
+          <activiti:value id="yizhenggai" name="已整改"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="已整改" name="已整改" activiti:candidateGroups="6">
+      <extensionElements>
+        <activiti:formProperty id="yijian" name="审批意见" type="enum" required="true">
+          <activiti:value id="fuchazhong" name="复查中"></activiti:value>
+          <activiti:value id="yifucha" name="已复查"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow9" sourceRef="整改中" targetRef="已整改">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='yizhenggai'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="复查中" name="复查中" activiti:candidateGroups="6">
+      <extensionElements>
+        <activiti:formProperty id="yijian" name="审批意见" type="enum" required="true">
+          <activiti:value id="yifucha" name="已复查"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="已复查" name="已复查" activiti:candidateGroups="4,6">
+      <extensionElements>
+        <activiti:formProperty id="yijian" name="审批意见" type="enum" required="true">
+          <activiti:value id="daichuli" name="待处理"></activiti:value>
+          <activiti:value id="yijiejue" name="已解决"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow11" sourceRef="复查中" targetRef="已复查">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='yifucha'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow13" sourceRef="待整改" targetRef="exclusivegateway2"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow14" sourceRef="已复查" targetRef="exclusivegateway3"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow15" sourceRef="已关闭" targetRef="endevent2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='jieshuliucheng'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="exclusivegateway2" targetRef="已整改">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='yizhenggai'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow17" sourceRef="exclusivegateway3" targetRef="待整改">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='daizhenggai'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="exclusivegateway2" targetRef="整改中">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='zhenggaizhong'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow20" sourceRef="已整改" targetRef="exclusivegateway4"></sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="exclusivegateway4" targetRef="已复查">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='yifucha'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow23" sourceRef="exclusivegateway4" targetRef="复查中">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='fuchazhong'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="已解决" name="已解决" activiti:candidateGroups="4,6">
+      <extensionElements>
+        <activiti:formProperty id="yijian" name="审批意见" type="enum" required="true">
+          <activiti:value id="yiguanbi" name="已关闭"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="已关闭" name="已关闭">
+      <extensionElements>
+        <activiti:formProperty id="yijian" name="结束流程" type="enum" required="true">
+          <activiti:value id="jieshuliucheng" name="结束流程"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow26" sourceRef="已解决" targetRef="已关闭">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='yiguanbi'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow33" sourceRef="exclusivegateway3" targetRef="已解决">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='yijiejue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow34" sourceRef="exclusivegateway1" targetRef="已解决">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${yijian=='yijiejue'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_scsl">
+    <bpmndi:BPMNPlane bpmnElement="scsl" id="BPMNPlane_scsl">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="53.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="新反馈" id="BPMNShape_新反馈">
+        <omgdc:Bounds height="55.0" width="105.0" x="120.0" y="43.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="269.0" y="52.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="待整改" id="BPMNShape_待整改">
+        <omgdc:Bounds height="55.0" width="105.0" x="237.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="整改中" id="BPMNShape_整改中">
+        <omgdc:Bounds height="55.0" width="105.0" x="237.0" y="203.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="已整改" id="BPMNShape_已整改">
+        <omgdc:Bounds height="55.0" width="105.0" x="237.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="复查中" id="BPMNShape_复查中">
+        <omgdc:Bounds height="55.0" width="105.0" x="480.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="已复查" id="BPMNShape_已复查">
+        <omgdc:Bounds height="55.0" width="105.0" x="640.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="160.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="766.0" y="287.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="739.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
+        <omgdc:Bounds height="40.0" width="40.0" x="396.0" y="287.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="已解决" id="BPMNShape_已解决">
+        <omgdc:Bounds height="55.0" width="105.0" x="840.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="已关闭" id="BPMNShape_已关闭">
+        <omgdc:Bounds height="55.0" width="105.0" x="840.0" y="370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="75.0" y="70.0"></omgdi:waypoint>
+        <omgdi:waypoint x="120.0" y="70.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="225.0" y="70.0"></omgdi:waypoint>
+        <omgdi:waypoint x="269.0" y="72.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="289.0" y="92.0"></omgdi:waypoint>
+        <omgdi:waypoint x="289.0" y="120.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="289.0" y="258.0"></omgdi:waypoint>
+        <omgdi:waypoint x="289.0" y="280.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="585.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="640.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="237.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="745.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="766.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="840.0" y="397.0"></omgdi:waypoint>
+        <omgdi:waypoint x="774.0" y="397.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="160.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="130.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="107.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="107.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="786.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="786.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="679.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="342.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="180.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="179.0" y="230.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="230.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="342.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="396.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="416.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="416.0" y="371.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="371.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="335.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="436.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="892.0" y="335.0"></omgdi:waypoint>
+        <omgdi:waypoint x="892.0" y="370.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="806.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
+        <omgdi:waypoint x="309.0" y="72.0"></omgdi:waypoint>
+        <omgdi:waypoint x="892.0" y="72.0"></omgdi:waypoint>
+        <omgdi:waypoint x="892.0" y="280.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

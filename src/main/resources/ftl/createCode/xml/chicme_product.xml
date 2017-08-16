@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table name="chicme_product" desc="wish 商品管理" key="id">
+ 
+   
+    <column>
+       <name>id</name>
+       <desc>ID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column>
+   
+   <column>
+       <name>brand</name>
+       <desc>商标</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>category</name>
+       <desc>目录</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+    
+    <column>
+       <name>color</name>
+       <desc>颜色</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+    <column>
+       <name>description</name>
+       <desc>描述</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+   <column>
+       <name>price</name>
+       <desc>价格</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+    <column>
+       <name>size</name>
+       <desc>大小</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+ 
+     
+    <column>
+       <name>sku</name>
+       <desc>sku</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column> 
+  
+</table>

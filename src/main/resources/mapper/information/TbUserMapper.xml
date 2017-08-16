@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TbUserMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd"  keyProperty="F_PRODUCT_ID" useGeneratedKeys="true">
+		    
+		insert into TB_USER(
+			F_USER_ID,	
+			F_UserName,
+			F_Birthday,	
+			F_NickName,	
+			F_Sex,	
+			F_Hometown,
+			F_Email,
+			F_Mobile,
+			F_Password,
+			F_RealPassword,
+			F_Deleted,
+			F_RealName,
+			F_Ip,
+			F_join,
+			F_last,
+			F_visits,
+			F_CREATE_DATE
+		) values (
+			#{F_USER_ID},
+			#{F_UserName},	
+			#{F_Birthday},	
+			#{F_NickName},	
+			#{F_Sex},	
+			#{F_Hometown},
+			#{F_Email},
+			#{F_Mobile},
+			#{F_Password},
+			#{F_RealPassword},
+			#{F_Deleted},
+			#{F_RealName},
+			#{F_Ip},
+			#{F_join},
+			#{F_last},
+			#{F_visits},
+			#{F_CREATE_DATE}
+		)
+		
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	          SELECT LAST_INSERT_ID() AS id
+	    </selectKey>
+	    
+	</insert>
+	
+	<insert id="register" parameterType="pd"  keyProperty="F_PRODUCT_ID">
+		    
+		insert into TB_USER(
+			F_USER_ID,	
+			F_UserName,
+			F_Birthday,	
+			F_NickName,	
+			F_Sex,	
+			F_Hometown,
+			F_Email,
+			F_Mobile,
+			F_Password,
+			F_Deleted,
+			F_RealName,
+			F_Ip,
+			F_join,
+			F_last,
+			F_visits
+		) values (
+			#{F_USER_ID},
+			#{F_UserName},	
+			#{F_Birthday},	
+			#{F_NickName},	
+			#{F_Sex},	
+			#{F_Hometown},
+			#{F_Email},
+			#{F_Mobile},
+			#{F_Password},
+			#{F_Deleted},
+			#{F_RealName},
+			#{F_Ip},
+			#{F_join},
+			#{F_last},
+			#{F_visits}
+		)  
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from TB_USER
+		where 
+			F_USER_ID = #{F_USER_ID}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  TB_USER
+			set 
+				F_UserName = #{F_UserName}, 
+				F_Birthday = #{F_Birthday},
+				F_NickName = #{F_NickName},
+				F_Sex = #{F_Sex},
+				F_Hometown = #{F_Hometown},
+				F_Email = #{F_Email},
+				F_Mobile = #{F_Mobile},
+				F_Password = #{F_Password},
+				F_RealPassword=#{F_RealPassword},
+				F_Deleted = #{F_Deleted},
+				F_RealName = #{F_RealName},
+				F_Ip = #{F_Ip},
+				F_join = #{F_join},
+				F_Email = #{F_Email},
+				F_last = #{F_last},
+				F_visits = #{F_visits},
+				F_UPDATE_DATE=#{F_UPDATE_DATE}
+			    where 
+				F_USER_ID = #{F_USER_ID}
+	</update>
+	
+	<update id="updateInfo" parameterType="pd">
+		update  TB_USER
+			set 
+			 <if test="F_UserName != null and F_UserName != ''"> 
+				F_UserName = #{F_UserName}, 
+			 </if>
+			 <if test="F_Birthday != null and F_Birthday != ''">
+				F_Birthday = #{F_Birthday},
+				</if>
+			 <if test="F_NickName != null and F_NickName != ''"> 
+				F_NickName = #{F_NickName},
+		     </if>
+		      <if test="F_Sex != null and F_Sex != ''"> 
+				F_Sex = #{F_Sex},
+			  </if>
+			  <if test="F_Hometown != null and F_Hometown != ''"> 
+				F_Hometown = #{F_Hometown},
+			  </if>
+			  <if test="F_Email != null and F_Email != ''"> 
+				F_Email = #{F_Email},
+			   </if>
+			   <if test="F_Mobile != null and F_Mobile != ''"> 
+				 F_Mobile = #{F_Mobile},
+			   </if>
+			   <if test="F_Password != null and F_Password != ''"> 
+				 F_Password = #{F_Password},
+			   </if> 
+			    <if test="F_RealName != null and F_RealName != ''"> 
+				 F_RealName = #{F_RealName},
+				</if>
+				F_Deleted = 0
+			    where 
+				  F_USER_ID = #{F_USER_ID}
+	</update>
+	
+	<update id="updatePassword" parameterType="pd" >
+		update  TB_USER
+			set     
+			   <if test="F_Password != null and F_Password != ''"> 
+				 F_Password = #{NEW_F_Password},
+			   </if>  
+				F_Deleted = 0
+			    where 
+				  F_USER_ID = #{F_USER_ID}  AND  F_Password = #{F_Password}
+	</update>
+	
+	<update id="updateMobile" parameterType="pd" >
+		update  TB_USER
+			set     
+			    <if test="F_Mobile != null and F_Mobile != ''"> 
+				 F_Mobile = #{NEW_F_Mobile},
+			   </if> 
+				F_Deleted = 0
+			    where 
+				  F_USER_ID = #{F_USER_ID}  AND  F_Mobile = #{F_Mobile}
+	</update>
+	
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+				F_USER_ID,	
+				F_UserName,	
+				F_Birthday,	
+				F_NickName,	
+				F_Sex,	
+				F_Hometown,
+				F_Email,
+				F_Mobile,
+				F_Password,
+				F_RealPassword,
+				F_Deleted,
+				F_RealName,
+				F_Ip,
+				F_join,
+				F_last,
+				F_visits
+		from 
+			TB_USER 
+		where 
+			F_USER_ID = #{F_USER_ID}
+	</select>
+	
+    <!-- 通过checkMobile -->
+	<select id="checkMobile" parameterType="pd" resultType="pd">
+		select 
+				F_USER_ID,	
+				F_UserName,	
+				F_Birthday,	
+				F_NickName,	
+				F_Sex,	
+				F_Hometown,
+				F_Email,
+				F_Mobile,
+				F_Password,
+				F_RealPassword,
+				F_Deleted,
+				F_RealName,
+				F_Ip,
+				F_join,
+				F_last,
+				F_visits
+		from 
+			TB_USER 
+		where  1 = 1
+		 <if test="param != null and param != ''"><!-- 关键词检索 -->
+			and  F_Mobile = #{param}
+		</if>
+		<if test="F_USER_ID != null and F_USER_ID != 'uidIsNull'"> 
+			and  F_USER_ID  <![CDATA[ <> ]]>   #{F_USER_ID}
+		</if> 
+	</select>
+	
+	 <!-- 通过checkEmail -->
+	<select id="checkEmail" parameterType="pd" resultType="pd">
+		select 
+				F_USER_ID,	
+				F_UserName,	
+				F_Birthday,	
+				F_NickName,	
+				F_Sex,	
+				F_Hometown,
+				F_Email,
+				F_Mobile,
+				F_Password,
+				F_RealPassword,
+				F_Deleted,
+				F_RealName,
+				F_Ip,
+				F_join,
+				F_last,
+				F_visits
+		from 
+			TB_USER 
+		where  1 = 1
+		 <if test="param != null and param != ''"><!-- 关键词检索 -->
+			and  F_Email = #{param}
+		</if>
+		<if test="F_USER_ID != null and F_USER_ID != 'uidIsNull'"> 
+			and  F_USER_ID  <![CDATA[ <> ]]>   #{F_USER_ID}
+		</if> 
+	</select>
+	
+	
+	 <!-- 通过F_UserName -->
+	<select id="checkName" parameterType="pd" resultType="pd">
+		select 
+				F_USER_ID,	
+				F_UserName,	
+				F_Birthday,	
+				F_NickName,	
+				F_Sex,	
+				F_Hometown,
+				F_Email,
+				F_Mobile,
+				F_Password,
+				F_RealPassword,
+				F_Deleted,
+				F_RealName,
+				F_Ip,
+				F_join,
+				F_last,
+				F_visits
+		from 
+			TB_USER 
+		where  1 = 1
+		 <if test="param != null and param != ''"><!-- 关键词检索 -->
+			and  F_UserName = #{param}
+		</if>
+		<if test="F_USER_ID != null and F_USER_ID != 'uidIsNull'"> 
+			and  F_USER_ID  <![CDATA[ <> ]]>   #{F_USER_ID}
+		</if> 
+	</select>
+	
+	
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="JPage" resultType="pd">
+		select
+				a.F_USER_ID,	
+				a.F_UserName,	
+				a.F_Birthday,	
+				a.F_NickName,	
+				a.F_Sex,	
+				a.F_Hometown,
+				a.F_Email,
+				a.F_Mobile,
+				a.F_Password,
+				a.F_Deleted,
+				a.F_RealName,
+				a.F_Ip,
+				a.F_join,
+				a.F_last,
+				a.F_visits,
+				date_format(a.F_CREATE_DATE,'%Y-%c-%d %h:%i:%s') as F_CREATE_DATE 
+		from 
+				TB_USER a 
+				where 1=1
+		 <if test="keyword != null and keyword != ''"><!-- 关键词检索 -->
+			and
+				(
+					 a.F_UserName LIKE CONCAT(CONCAT('%', #{keyword}),'%')
+					 or 
+					 a.F_NickName LIKE CONCAT(CONCAT('%', #{keyword}),'%') 
+					 or
+					 a.F_Email LIKE CONCAT(CONCAT('%', #{keyword}),'%')
+					 or
+					 a.F_Mobile LIKE CONCAT(CONCAT('%', #{keyword}),'%')
+					 or
+					 a.F_RealName LIKE CONCAT(CONCAT('%', #{keyword}),'%')
+				)
+		</if>
+		   order by F_CREATE_DATE
+	</select>
+	
+		<!-- 列表(全部) -->
+	<select id="login" parameterType="pd" resultType="pd">
+			select
+				a.F_USER_ID,	
+				a.F_UserName,	
+				a.F_Birthday,	
+				a.F_NickName,	
+				a.F_Sex,	
+				a.F_Hometown,
+				a.F_Email,
+				a.F_Mobile,
+				a.F_Password,
+				a.F_Deleted,
+				a.F_RealName,
+				a.F_Ip,
+				a.F_join,
+				a.F_last,
+				a.F_visits
+		from 
+				TB_USER a 
+					where 1=1 AND
+				 a.F_UserName = #{F_UserName} AND a.F_Password=#{F_Password}
+	</select>
+	
+	<select id="hasUser" parameterType="pd" resultType="pd">
+			select
+				a.F_USER_ID,	
+				a.F_UserName,	
+				a.F_Birthday,	
+				a.F_NickName,	
+				a.F_Sex,	
+				a.F_Hometown,
+				a.F_Email,
+				a.F_Mobile,
+				a.F_Password,
+				a.F_Deleted,
+				a.F_RealName,
+				a.F_Ip,
+				a.F_join,
+				a.F_last,
+				a.F_visits
+		from 
+				TB_USER a 
+					where 1=1 AND
+				 a.F_UserName = #{F_UserName}
+	</select>
+	
+	<select id="hasEmail" parameterType="pd" resultType="pd">
+			select
+				a.F_USER_ID,	
+				a.F_UserName,	
+				a.F_Birthday,	
+				a.F_NickName,	
+				a.F_Sex,	
+				a.F_Hometown,
+				a.F_Email,
+				a.F_Mobile,
+				a.F_Password,
+				a.F_Deleted,
+				a.F_RealName,
+				a.F_Ip,
+				a.F_join,
+				a.F_last,
+				a.F_visits
+		from 
+				TB_USER a 
+					where 1=1 AND
+				 a.F_Email = #{F_Email}
+	</select>
+	
+	<select id="hasMobile" parameterType="pd" resultType="pd">
+			select
+				a.F_USER_ID,	
+				a.F_UserName,	
+				a.F_Birthday,	
+				a.F_NickName,	
+				a.F_Sex,	
+				a.F_Hometown,
+				a.F_Email,
+				a.F_Mobile,
+				a.F_Password,
+				a.F_Deleted,
+				a.F_RealName,
+				a.F_Ip,
+				a.F_join,
+				a.F_last,
+				a.F_visits
+		from 
+				TB_USER a 
+					where 1=1 AND
+				 a.F_Mobile = #{F_Mobile}
+	</select>
+	
+	
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+			select
+				a.F_USER_ID,	
+				a.F_UserName,	
+				a.F_Birthday,	
+				a.F_NickName,	
+				a.F_Sex,	
+				a.F_Hometown,
+				a.F_Email,
+				a.F_Mobile,
+				a.F_Password,
+				a.F_Deleted,
+				a.F_RealName,
+				a.F_Ip,
+				a.F_join,
+				a.F_last,
+				a.F_visits
+		from 
+				TB_USER a 
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from TB_USER
+		where 
+			F_USER_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>

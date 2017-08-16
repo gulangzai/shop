@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table name="bu_file" desc="文件表" key="FILE_UID">
+   <column>
+       <name>FILE_UID</name>
+       <desc>文件UID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column>
+   
+    <column>
+       <name>TARGET_TABLE</name>
+       <desc>附件所属对象表名</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>TARGET_COL</name>
+       <desc>附件所属对象列名</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>TARGET_UID</name>
+       <desc>附件所属对象ID</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+   
+    <column>
+       <name>FILE_TYPE</name>
+       <desc>文件类型</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+   
+   <column>
+       <name>FILE_TYPE_NAME</name>
+       <desc>附件类别名称</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+   
+   <column>
+       <name>DESCRIPTION</name>
+       <desc>附件的描述</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+   <column>
+       <name>ATTACHMENT_UID</name>
+       <desc>附件ID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column> 
+   
+   <column>
+       <name>ENABLED</name>
+       <desc>是否有效</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column> 
+  
+   <column>
+       <name>CREATE_DATE</name>
+       <desc>创建时间</desc>
+       <isRequired>Y</isRequired>
+       <type>date</type>
+   </column> 
+   
+   <column>
+       <name>CREATE_USER</name>
+       <desc>创建人</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column> 
+   
+  
+</table>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TbStandardMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd"> 
+	    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	          SELECT LAST_INSERT_ID() AS id
+	    </selectKey>
+	    
+		insert into TB_STANDARD(
+			F_PRODUCT_ID,	
+			F_StandardName,
+			F_StandardValue,	
+			F_XUHAO
+		) values (
+			#{F_PRODUCT_ID},
+			#{F_StandardName},	
+			#{F_StandardValue},	
+			#{F_XUHAO}
+		)
+		
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from T_PRODUCT
+		where 
+			F_PRODUCT_ID = #{F_ProductId}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  T_PRODUCT
+			set 
+				F_PRODUCTNAME = #{F_PRODUCTNAME},
+				F_PRODUCTDESC = #{F_PRODUCTDESC},
+				F_PRICE = #{F_PRICE},
+				F_CLSID = #{F_CLSID},
+				F_ISSPECIAL = #{F_ISSPECIAL},
+			F_PRODUCT_ID = F_ProductId
+			where 
+				F_PRODUCT_ID = #{F_ProductId}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			F_PRODUCTNAME,	
+			F_PRODUCTDESC,	
+			F_PRICE,	
+			F_CLSID,	
+			F_ISSPECIAL,	
+			F_PRODUCT_ID
+		from 
+			T_PRODUCT
+		where 
+			F_PRODUCT_ID = #{F_ProductId}
+	</select>
+	
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				a.F_PRODUCTNAME,	
+				a.F_PRODUCTDESC,	
+				a.F_PRICE,	
+				a.F_CLSID,	
+				a.F_ISSPECIAL,	
+				a.F_PRODUCT_ID
+		from 
+				T_PRODUCT a
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+				a.F_PRODUCTNAME,	
+				a.F_PRODUCTDESC,	
+				a.F_PRICE,	
+				a.F_CLSID,	
+				a.F_ISSPECIAL,	
+				a.F_PRODUCT_ID
+		from 
+				T_PRODUCT a
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from T_PRODUCT
+		where 
+			F_PRODUCT_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>

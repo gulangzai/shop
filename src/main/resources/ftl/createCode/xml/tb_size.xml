@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table name="tb_size" desc="尺寸表" key="F_SIZE_UID">
+   <column>
+       <name>F_SIZE_UID</name>
+       <desc>尺寸UID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column>
+   
+    <column>
+       <name>F_PRODUCT_ID</name>
+       <desc>商品表UID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column>
+   
+   <column>
+       <name>F_SIZE_LABEL</name>
+       <desc>尺寸名</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>F_XUHAO</name>
+       <desc>序号</desc>
+       <isRequired>N</isRequired>
+       <type>int</type>
+   </column> 
+   
+   
+    <column>
+       <name>F_STATUS</name>
+       <desc>状态</desc>
+       <isRequired>N</isRequired>
+       <type>int</type>
+   </column>  
+  
+</table>

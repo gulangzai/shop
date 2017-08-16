@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table name="tb_product_attr" desc="商品属性关联表" key="F_PRODUCT_ATTR_UID">
+   <column>
+       <name>F_PRODUCT_ATTR_UID</name>
+       <desc>商品属性关联表UID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column>
+   
+    <column>
+       <name>F_PRODUCT_UID</name>
+       <desc>商品表UID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column>
+   
+   <column>
+       <name>F_ATTR_UID</name>
+       <desc>属性表UID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column> 
+   
+</table>

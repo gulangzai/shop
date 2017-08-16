@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TbMessageMapper">
+	 
+	
+		<!-- 新增-->
+	<insert id="save" parameterType="pd"  keyProperty="F_MESSAGE_UID" useGeneratedKeys="true">
+		    
+		insert into tb_message (
+							      F_USER_ID,  
+							      F_TITLE,  
+							      F_CONTENT,  
+							      F_STATUS,  
+					          F_CREATE_DATE
+		) values (
+							       #{F_USER_ID},  
+							       #{F_TITLE},  
+							       #{F_CONTENT},  
+							       #{F_STATUS},  
+					             #{F_CREATE_DATE}
+		)
+		
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="ID">
+	          SELECT LAST_INSERT_ID() AS id
+	    </selectKey>
+	    
+	</insert>
+	 
+	 
+    <!-- datalistPage -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		 select
+					      a.F_USER_ID,  
+					      a.F_TITLE,  
+					      a.F_CONTENT,  
+					      a.F_STATUS,  
+			             date_format(a.F_CREATE_DATE,'%Y-%c-%d %h:%i:%s') as F_CREATE_DATE,
+				a.F_MESSAGE_UID
+		from 
+				tb_message a 
+				   where 
+				   F_USER_ID  = #{pd.F_USER_ID}
+	</select>
+	
+	 
+	 	<!--findById -->
+	<select id="findById" parameterType="pd" resultType="pd">
+	
+	SELECT
+					      tbMessage.F_USER_ID,  
+					      tbMessage.F_TITLE,  
+					      tbMessage.F_CONTENT,  
+					      tbMessage.F_STATUS,  
+			             date_format(tbMessage.F_CREATE_DATE,'%Y-%c-%d %h:%i:%s') as F_CREATE_DATE,
+				tbMessage.F_MESSAGE_UID,
+	(select PATH From tb_pictures tbpictures where tbpictures.TABLE_UID_VALUE = tbMessage.F_MESSAGE_UID limit 0,1) AS PATH
+FROM
+	tb_message tbMessage
+WHERE  F_MESSAGE_UID = #{F_MESSAGE_UID}
+	 
+	</select>
+	
+	
+	<!-- �޸� -->
+	<update id="edit" parameterType="pd">
+		update  tb_message
+			set 
+					      F_USER_ID = #{F_USER_ID},
+					      F_TITLE = #{F_TITLE},
+					      F_CONTENT = #{F_CONTENT},
+					      F_STATUS = #{F_STATUS},
+					      F_CREATE_DATE = #{F_CREATE_DATE},
+		        F_MESSAGE_UID = #{ F_MESSAGE_UID}
+		     where 
+			    F_MESSAGE_UID = #{ F_MESSAGE_UID}
+				 
+	</update>
+	
+    <!-- ɾ��-->
+	<delete id="delete" parameterType="pd">
+		delete from  tb_message
+		where 
+			F_MESSAGE_UID = #{ F_MESSAGE_UID}
+	</delete>
+	
+	
+ 
+	
+</mapper>

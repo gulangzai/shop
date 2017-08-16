@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table name="bu_attachment" desc="附件表" key="F_ADDRESS_UID">
+   <column>
+       <name>ATTACHMENT_UID</name>
+       <desc>附件UID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column>
+   
+    <column>
+       <name>FILE_NAME</name>
+       <desc>文件名</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>FILE_EXT_NAME</name>
+       <desc>文件扩展名</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>FILE_PATH</name>
+       <desc>文件地址</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+    <column>
+       <name>MIME_TYPE</name>
+       <desc>文件的MIME_TYPE</desc>
+       <isRequired>N</isRequired>
+       <type>varchar</type>
+   </column> 
+   
+   <column>
+       <name>FILE_SIZE</name>
+       <desc>文件大小</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column> 
+     
+    <column>
+       <name>CREATE_DATE</name>
+       <desc>创建时间</desc>
+       <isRequired>Y</isRequired>
+       <type>date</type>
+   </column> 
+   
+   <column>
+       <name>CREATE_USER</name>
+       <desc>创建人</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column> 
+   
+</table>

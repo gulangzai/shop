@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table name="tb_shouchang" desc="收藏管理" key="F_SHOUCHANG_UID">
+   <column>
+       <name>F_SHOUCHANG_UID</name>
+       <desc>收藏UID</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+    <column>
+       <name>F_USER_ID</name>
+       <desc>用户账号</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>F_PRODUCT_ID</name>
+       <desc>商品id</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+ 
+ 
+   
+   
+    <column>
+       <name>CREATE_DATE</name>
+       <desc>创建时间</desc>
+       <isRequired>Y</isRequired>
+       <type>date</type>
+   </column> 
+   
+    
+   
+</table>

@@ -1,0 +1,360 @@
+* {
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.TemplateAnnouncement {
+    width: 15%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.newAdd {
+    width: 1200px;
+    margin: 0 auto;
+    border: 1px solid red;;
+    background: #fff;
+}
+
+.fromTop {
+    height: 40px;
+    background: #307ecc;
+}
+
+#SkinOptions {
+    width: 150px;
+    height: 100%;
+    float: right;
+    background: rgba(255, 255, 255, .85);
+}
+
+#SkinOptions > span, #SkinOptions > div {
+    margin-top: 10px;
+    margin-left: 15px;
+    float: left;
+}
+
+#title {
+    width: 200px;
+    color: #fff;
+    margin-left: 50px;
+    font-size: 24px;
+    display: inline-block;
+}
+
+.group {
+    width: 100%;
+    margin-bottom: 20px;
+    margin-left: -12px;
+    position: relative;
+}
+
+.group.row b {
+    margin-left: 2px;
+}
+
+.groupLeft {
+    padding-top: 5px;
+    text-align: right;
+    height: 30px;
+}
+
+.fa-asterisk {
+    color: red;
+    margin-right: 5px;
+}
+
+.group input {
+    height: 34px;
+
+}
+
+select {
+    width: 300px;
+    height: 30px;
+}
+
+.dateIcon {
+    width: 30px;
+    height: 30px;
+    background: #EEEEEE;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: -4px;
+}
+
+.dateIcon > i {
+    width: 15px;
+    margin: 8px;
+}
+
+.lbl {
+    margin: 4px 0 0 3px !important;
+}
+
+/* #table1*/
+#table1 td:first-child, #table1 th:first-child {
+    width: 30%;
+}
+
+#table1 td, #table1 th {
+    width: 23%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.first {
+    width: 30%;
+}
+
+#table1 img {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+
+#table1 {
+    margin-top: 10px;;
+}
+
+.IconGreen1 {
+    color: #85B558;
+}
+
+.IconGreen2 {
+    color: red;
+}
+
+#operation a {
+    margin: 0 3px;
+}
+
+#cboxClose {
+    top: 0;
+}
+
+footer {
+    width: 100%;
+    height: 50px;
+    background: #EFF3F8;
+}
+
+.footerIcon {
+    margin-top: 4px;
+    float: right;
+}
+
+.ChildInline {
+    width: 50%;
+    float: left;
+}
+
+.ChildInline > span {
+    display: inline-block;
+    width: 33.2%;
+}
+
+.ChildInline > input {
+    display: inline-block;
+    width: 55.5%;
+
+}
+
+/* 兼容页面样式 以作修改 */
+.col-xs-6, .col-sm-10 {
+    margin-left: -3px;
+}
+
+/*添加自定义红星的样式*/
+.redstar {
+    color: red;
+    margin-right: 5px;
+    position: relative;
+    font-size: 12px;
+}
+
+/*添加 textarea 标签的表单样式*/
+.textareaC {
+    resize: none;
+    padding-left: 4px;
+}
+
+/*网站的所有btn样式都改变*/
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+/*添加 上传文件~图片显示的class*/
+.hierarchy{
+    z-index: 1;
+}
+.formText{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,.55);
+    color: #FFF;
+    text-align: center;
+    display:none;
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+    filter: alpha(opacity=0);
+    /*background:green;*/
+}
+
+.template-download:hover .formText{
+	 display:block;
+}
+.ImgTitle{
+    position:absolute;
+    bottom:-10px;
+    left: 0;
+    text-align: center;
+    height:20px;
+    overflow: hidden;
+    display:block; 	
+    width:100%;
+}
+.formText>.describe{
+    position:absolute;
+    bottom:-80px;
+    left:70%;
+    top:80px;
+    width:130px;
+    height:80px;
+    background:#f3f3f3;
+    z-index: 19;
+    border-radius: 5px;
+    border:1px solid #f3f3f3;
+    box-shadow:2px 2px 5px #000;
+    -webkit-box-shadow:2px 2px 5px #000;
+    -moz-box-shadow:2px 2px 5px #000;
+}
+.formText>.describe1{
+    position:absolute;
+    bottom:-80px;
+    left:70%;
+    top:80px;
+    width:130px;
+    height:40px;
+    background:#f3f3f3;
+    z-index: 19;
+    border-radius: 5px;
+    border:1px solid #f3f3f3;
+    box-shadow:2px 2px 5px #000;
+    -webkit-box-shadow:2px 2px 5px #000;
+    -moz-box-shadow:2px 2px 5px #000;
+}
+.jiao{
+    position: absolute;
+    top:95px;
+    left:65%;
+    width:15px;height:15px;
+    background:#f3f3f3;
+    transform: rotate(-43deg);
+    border-top:1px solid #f3f3f3;
+    border-left:1px solid #f3f3f3;
+    z-index: 20;
+}
+.jiao1{
+    position: absolute;
+    top:95px;
+    left:65%;
+    width:15px;height:15px;
+    background:#f3f3f3;
+    transform: rotate(-43deg);
+    border-top:1px solid #f3f3f3;
+    border-left:1px solid #f3f3f3;
+    z-index: 20;
+}
+.describe>textarea,.describe1>textarea{
+    resize: none;
+    border:none;
+    margin-top: 5%;
+    background:#f3f3f3;
+    width:90%;
+    height:80%;
+}
+.describe>textarea::-webkit-input-placeholder{
+    color:#fff;
+}
+.describe>textarea:-moz-placeholder{
+    color:#fff;
+}
+.describe>textarea::-moz-placeholder{
+    color:#fff;
+}
+.describe>textarea:-ms-input-placeholder{
+    color:#fff;
+}
+.formInner{
+    position: absolute;
+    width:100%;
+    top:35%;
+}
+.formInner>a{
+    display: inline-block;
+    padding: 0 4px;
+    color: #FFF;
+    font-weight: 400;
+    font-size: 18px;
+    margin:0 2px;
+    cursor: pointer;
+}
+
+/*添加icon图标的大小*/
+.fontS16{
+    font-size: 16px;
+}
+
+/*添加上传文件的DIV大小限制~~~滚动条*/
+.form_scY{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:110px;
+}
+/*同行双input元素~位置调整  用于飞行检查*/
+.form_pl{
+    position: relative;
+    left:-3%;
+}
+
+/*添加上传图片~图片间隔样式*/
+.template-download{
+    margin:0 5px 5px 0;
+}
+
+/* 所有用grid编译的table 第一行全部隐藏
+table#grid_table tr:first-child{
+    display: none;
+ } */
+ /* 影响jqgrid列宽 暂时去掉。/
+table#grid_table_cb tr:first-child{
+    display: none;
+}*/
+

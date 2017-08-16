@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table name="tb_color" desc="颜色表" key="F_COLOR_UID">
+   <column>
+       <name>F_COLOR_UID</name>
+       <desc>颜色UID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column>
+   
+    <column>
+       <name>F_PRODUCT_ID</name>
+       <desc>商品表UID</desc>
+       <isRequired>Y</isRequired>
+       <type>int</type>
+   </column>
+   
+   <column>
+       <name>F_COLOR_LABEL</name>
+       <desc>颜色名</desc>
+       <isRequired>Y</isRequired>
+       <type>varchar</type>
+   </column>
+   
+   <column>
+       <name>F_XUHAO</name>
+       <desc>序号</desc>
+       <isRequired>N</isRequired>
+       <type>int</type>
+   </column> 
+   
+   
+    <column>
+       <name>F_STATUS</name>
+       <desc>状态</desc>
+       <isRequired>N</isRequired>
+       <type>int</type>
+   </column>  
+  
+</table>
