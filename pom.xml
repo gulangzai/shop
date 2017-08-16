@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.jiujichina</groupId>
+  <artifactId>shop</artifactId>
+  <packaging>ear</packaging>
+  <version>1.0.1</version>
+  <name>shop</name>
+  <url>http://maven.apache.org</url>
+<!--    <properties>  
+       <java-version>1.8</java-version>  
+       <org.springframework-version>4.0.5.RELEASE</org.springframework-version>  
+       <org.aspectj-version>1.6.10</org.aspectj-version>  
+       <org.slf4j-version>1.6.6</org.slf4j-version>  
+ </properties>   -->
+ 
+   <repositories>
+       <repository>
+           <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>http://www.jiujichina.com:8081/nexus/content/groups/public</url>
+       </repository> 
+  </repositories> 
+        
+  <dependencies> 
+    
+    <dependency>
+	  <groupId>com.jiujichina</groupId>
+	  <artifactId>jiujichina-base</artifactId>
+	  <version>1.0.16</version> 
+	</dependency>
+	
+	
+  </dependencies>
+    
+  <build>
+    <finalName>shop</finalName>
+    <defaultGoal>compile</defaultGoal>
+    
+  <!--    <plugins>  
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-resources-plugin</artifactId>  
+                <configuration>  
+                    <overwrite>true</overwrite>  
+                </configuration>  
+            </plugin>  
+            <plugin>  
+                <artifactId>maven-compiler-plugin</artifactId>  
+                <configuration>  
+                    <source>1.5</source>  
+                    <target>1.5</target>  
+                </configuration>  
+            </plugin>  
+        </plugins>   -->
+        
+  </build>
+</project>
