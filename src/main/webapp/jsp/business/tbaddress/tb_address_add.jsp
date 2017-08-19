@@ -48,17 +48,17 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
 									城市：<span class="required-indicator">*</span>
 								</label>
 								<div class="col-sm-2" >
-									 <select  datatype="*" nullmsg = "请选择所在的省！"  style="width: 150px;border:1px solid #ddd;" name="PROVINCE" id="PROVINCE" fieldname="PROVINCE"  class="col-xs-11 col-sm-11" onchange="checkProvince(this.id)" >
+									 <select  datatype="*" nullmsg = "请选择所在的省！"  style="width: 150px;border:1px solid #ddd;" name="PROVINCE" id="PROVINCE" fieldname="F_PROVINCE"  class="col-xs-11 col-sm-11" onchange="checkProvince(this)" >
 									 <!-- <option>&nbsp;&nbsp;选择省&nbsp;&nbsp;</option>  -->
 									 </select>
 								</div>
 								<div class="col-sm-2"  >
-									 <select  datatype="*" nullmsg = "请选择所在的地级市！"  style="width: 150px;border:1px solid #ddd;overflow-y:scroll;" name="CITY" id="CITY"  fieldname="CITY"  class="col-xs-11 col-sm-11" onchange="checkCity(this.id);">
+									 <select  datatype="*" nullmsg = "请选择所在的地级市！"  style="width: 150px;border:1px solid #ddd;overflow-y:scroll;" name="CITY" id="CITY"  fieldname="F_CITY"  class="col-xs-11 col-sm-11" onchange="checkCity(this);">
 									   <option  >&nbsp;&nbsp;&nbsp;&nbsp;地级市&nbsp;&nbsp;</option>
 									 </select>
 								</div>
 								<div class="col-sm-2"  >
-									 <select  datatype="*" nullmsg = "请选择所在的市、县、区！"  style="width: 150px;border:1px solid #ddd;overflow-y:scroll;"  name="DISTRICT" id="CONTRY" fieldname="DISTRICT" onchange="checkContry(this.id);" class="col-xs-11 col-sm-11" >
+									 <select  datatype="*" nullmsg = "请选择所在的市、县、区！"  style="width: 150px;border:1px solid #ddd;overflow-y:scroll;"  name="DISTRICT" id="CONTRY" fieldname="F_DISTRICT" onchange="checkContry(this);" class="col-xs-11 col-sm-11" >
 									  <option value="" >&nbsp;&nbsp;&nbsp;&nbsp;市、县、区&nbsp;&nbsp;</option>
 									 </select>
 								</div>
@@ -169,8 +169,57 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
  <script type="text/javascript">
 	 var form;
 	 $(function(){ 
-		 form = FormValid.validbyFormId("#addForm"); 
+		 form = FormValid.validbyFormId("#addForm");  
+		 $("#PROVINCE").empty();
+		 $("#PROVINCE").append("<option>&nbsp;&nbsp;选择省&nbsp;&nbsp;</option>");
+		 initSelect($("#PROVINCE"),"");
 	 });
+
+	 function checkProvince(obj){ 
+		 console.info(obj);
+         var selectVal = $(obj).val();
+         console.info(selectVal); 
+         $("#CITY").empty();
+         $("#CITY").append("<option>&nbsp;&nbsp;&nbsp;&nbsp;地级市&nbsp;&nbsp;</option>");
+         initSelect($("#CITY"),selectVal);
+         $("#CONTRY").empty();
+         $("#CONTRY").append("<option value=''>&nbsp;&nbsp;&nbsp;&nbsp;市、县、区&nbsp;&nbsp;</option>");
+         
+	 }
+
+	 function checkCity(obj){ 
+         var selectVal = $(obj).val();
+         console.info(selectVal);
+         $("#CONTRY").empty();
+         $("#CONTRY").append("<option value=''>&nbsp;&nbsp;&nbsp;&nbsp;市、县、区&nbsp;&nbsp;</option>");
+         initSelect($("#CONTRY"),selectVal);
+	 }
+
+	 function checkContry(obj){
+	 }
+	 
+
+	 function initSelect(selectObj,REGION_CODE){
+		 $.ajax({
+				url : "${ctx}/sysregion/sysRegionController/getInfoByRegionCode.do",
+				data : {REGION_CODE:REGION_CODE},
+				cache : false,
+				async :	false,
+				dataType : "json",  
+				type : 'post',
+				success : function(response) {
+					console.info(response);
+					var data = response.data;
+					console.info(data); 
+					data.forEach(function(ele,index){
+						selectObj.append("<option value='"+ele.REGION_CODE+"'>"+ele.REGION_NAME+"</option>");   
+					});
+				}
+			}); 
+	 }
+
+
+	 
   
 	  $("#CREATE_DATE").datepicker({
 	        format: 'yyyy-mm-dd',

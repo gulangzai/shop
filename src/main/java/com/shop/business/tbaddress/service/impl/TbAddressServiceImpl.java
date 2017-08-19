@@ -40,12 +40,15 @@ public class TbAddressServiceImpl implements TbAddressService {
 		tbAddressDao.update("TbAddressMapper.edit", pd);
 	}
 	
+ 
+	
 	/*
 	*list
 	*/
 	public List<PageData> list(Page page)throws Exception{ 
 		return (List<PageData>)tbAddressDao.findForList("TbAddressMapper.datalistPage", page);
 	}
+	
 	
 	public int datalistPageCount(Page page) throws Exception {
 		// TODO Auto-generated method stub

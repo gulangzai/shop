@@ -29,6 +29,9 @@
 	    </selectKey>
 	    
 	</insert>
+	
+	  
+	
 	 
 	 
     <!-- datalistPage -->
@@ -40,13 +43,19 @@
 					      a.F_POSTAL_CODE,  
 					      a.F_RECEIVE_NAME,  
 					      a.F_RECEIVE_MOBILE,  
-			             date_format(a.CREATE_DATE,'%Y-%c-%d %h:%i:%s') as CREATE_DATE,
+					      a.F_PROVINCE,
+					      (select region_name from sys_region where region_code =  a.F_PROVINCE) as F_PROVINCE_LABEL,
+					      a.F_CITY,
+					      (select region_name from sys_region where region_code =  a.F_CITY) as F_CITY_LABEL,
+					      a.F_DISTRICT,
+					      (select region_name from sys_region where region_code =  a.F_DISTRICT) as F_DISTRICT_LABEL,
+					      date_format(a.CREATE_DATE,'%Y-%c-%d %h:%i:%s') as CREATE_DATE,
 				a.F_ADDRESS_UID
 		from 
 				tb_address a
 				<if test = 'pd.search=="true"'>
 				   where 
-				   F_ADDRESS_UID 
+				   F_RECEIVE_NAME 
 				   like  CONCAT(CONCAT('%', #{pd.keyword, jdbcType=VARCHAR}),'%') 
 				</if>
 	</select>
@@ -58,14 +67,21 @@
 	SELECT
 					      tbAddress.F_DIQU,  
 					      tbAddress.F_USER_ID,  
+					      (select F_UserName from tb_user where F_USER_ID = tbAddress.F_USER_ID) as F_UserName,
 					      tbAddress.F_ADDRESS_DETAIL,  
 					      tbAddress.F_POSTAL_CODE,  
 					      tbAddress.F_RECEIVE_NAME,  
 					      tbAddress.F_RECEIVE_MOBILE,  
-			             date_format(tbAddress.CREATE_DATE,'%Y-%c-%d %h:%i:%s') as CREATE_DATE,
-				tbAddress.F_ADDRESS_UID,
-	(select PATH From tb_pictures tbpictures where tbpictures.TABLE_UID_VALUE = tbAddress.F_ADDRESS_UID limit 0,1) AS PATH
-FROM
+					      tbAddress.F_PROVINCE,
+					      (select region_name from sys_region where region_code =  tbAddress.F_PROVINCE) as F_PROVINCE_LABEL,
+					      tbAddress.F_CITY,
+					      (select region_name from sys_region where region_code =  tbAddress.F_CITY) as F_CITY_LABEL,
+					      tbAddress.F_DISTRICT,
+					      (select region_name from sys_region where region_code =  tbAddress.F_DISTRICT) as F_DISTRICT_LABEL,
+					      date_format(tbAddress.UPDATE_DATE,'%Y-%c-%d %h:%i:%s') as UPDATE_DATE,
+			              date_format(tbAddress.CREATE_DATE,'%Y-%c-%d %h:%i:%s') as CREATE_DATE,
+				tbAddress.F_ADDRESS_UID
+ FROM
 	tb_address tbAddress
 WHERE  F_ADDRESS_UID = #{F_ADDRESS_UID}
 	 
@@ -82,7 +98,9 @@ WHERE  F_ADDRESS_UID = #{F_ADDRESS_UID}
 					      F_POSTAL_CODE = #{F_POSTAL_CODE},
 					      F_RECEIVE_NAME = #{F_RECEIVE_NAME},
 					      F_RECEIVE_MOBILE = #{F_RECEIVE_MOBILE},
-					      CREATE_DATE = #{CREATE_DATE},
+					      F_PROVINCE = #{F_PROVINCE}, 
+					      F_CITY = #{F_CITY},
+					      F_DISTRICT = #{F_DISTRICT},
 		        F_ADDRESS_UID = #{ F_ADDRESS_UID}
 		     where 
 			    F_ADDRESS_UID = #{ F_ADDRESS_UID}

@@ -52,8 +52,8 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
 			<form class="form-inline" width="100%" action="${ctx}/tbaddress/tbAddressController/list.do" method="post" name="INDEX_Form" id="INDEX_Form" style="border:solid 1px #ddd;line-height:50px;vertical-align:middle;">
 					
 					<div class="form-group">
-					           收货地址UID
-							   	<input class="form-control" name="KEYWORD" id="KEYWORD"   type="text"    style="width:120px;border-radius:8px 8px 8px 8px;border:1px solid #d1d2d9;" placeholder="商品名"/>
+					            收件人 
+							   	<input class="form-control" name="KEYWORD" id="KEYWORD"   type="text"    style="width:120px;border-radius:8px 8px 8px 8px;border:1px solid #d1d2d9;" placeholder="收件人"/>
 							  
 						 		
 							  	<button class="btn  btn-link btn-sm" type="button" onclick="search();">
@@ -71,8 +71,8 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
 		 
 		 	<table id="jqGrid" class="table table-striped table-bordered table-hover imagetable"  action="${ctx}/tbaddress/tbAddressController/dataList.do">
 		        
-		        <tr>            <th name="F_DIQU"   align="center" formatter="">地区</th> 
-							    <th name="F_USER_ID"   align="center" formatter="">用户账号</th> 
+		        <tr>            <th name="F_DIQU"   align="center" formatter="formatterDiqu">地区</th> 
+							   <!--  <th name="F_USER_ID"   align="center" formatter="">用户账号</th>  -->
 							    <th name="F_ADDRESS_DETAIL"   align="center" formatter="">详细地址</th> 
 							    <th name="F_POSTAL_CODE"   align="center" formatter="">邮政编码</th> 
 							    <th name="F_RECEIVE_NAME"   align="center" formatter="">收件人</th> 
@@ -85,7 +85,7 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
         
         
         <div class="form-inline" width="100%">  
-			  <a class="btn btn-small btn-success" onclick="add();">新增</a> 
+			 <!--  <a class="btn btn-small btn-success" onclick="add();">新增</a> --> 
 							 
 			  <a class="btn btn-small btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" >删除</a>
 	    </div> 
@@ -102,21 +102,32 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
 		  $(document).ready(function () {
 		       JqgridManager.init(jqGrid);
 		  });
-		   
+
+		  
+
+		  function formatterDiqu(cellvalue, opts, rowObject){
+	    	    var F_ADDRESS_UID = rowObject.F_ADDRESS_UID;  
+	    	    var provinceLabel = rowObject.F_PROVINCE_LABEL;
+	    	    var cityLabel = rowObject.F_CITY_LABEL;
+	    	    var districtLabel = rowObject.F_DISTRICT_LABEL;
+	    		var showHtml =   "<span class='glyphicon'>"+provinceLabel+""+cityLabel+""+districtLabel+"</span>"; 
+	    		return 	showHtml;
+	    	}
+	    	
 		 function doReportInfo(cellvalue, opts, rowObject){
     	    var F_ADDRESS_UID = rowObject.F_ADDRESS_UID; 
     		
     		var showHtml =  "<button type='button' class='btn btn-default btn-sm' onclick='see("+F_ADDRESS_UID+")'>";
     		showHtml +="<span class='glyphicon  glyphicon glyphicon-file'></span>";
-    		showHtml +="</button>";
+    		showHtml +="</button>&nbsp;&nbsp;";
     		
     		showHtml +=  "<button type='button' class='btn btn-default btn-sm' onclick='edit("+F_ADDRESS_UID+")'>";
     		showHtml +="<span class='glyphicon glyphicon-edit'></span>";
-    		showHtml +="</button>";
+    		showHtml +="</button>&nbsp;&nbsp;";
 		
     		showHtml +="<button type='button' class='btn btn-default btn-sm' onclick='del("+F_ADDRESS_UID+")'>";
     		showHtml +="<span class='glyphicon glyphicon-remove'></span>";
-    		showHtml +="</button>"; 
+    		showHtml +="</button>&nbsp;"; 
     		return 	showHtml;
     	}
     	
@@ -131,7 +142,7 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
 			  var keyword=$("#KEYWORD").val();
 		      $("#jqGrid").jqGrid('setGridParam',{  
 		            datatype:'json',  
-		            postData:{'search':true,'keyword':encodeURI(encodeURI(keyword))}, //发送数据  
+		            postData:{'search':true,'keyword':keyword}, //发送数据  
 		            page:1  
 		        }).trigger("reloadGrid"); //重新载入  
 		}

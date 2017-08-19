@@ -47,6 +47,14 @@ public class SysRegionService {
 	}
 	
 	/*
+	*列表
+	*/
+	public List<PageData> getInfoByRegionCode(PageData pd)throws Exception{
+		return (List<PageData>)dao.findForList("SysRegionMapper.getInfoByRegionCode", pd);
+	}
+	
+	
+	/*
 	*列表(全部)
 	*/
 	public List<PageData> listAll(PageData pd)throws Exception{

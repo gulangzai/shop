@@ -35,14 +35,19 @@
 	</resultMap>
 	
 	<!-- 判断用户名和密码 -->
-	<select id="getUserInfo" parameterType="User" resultMap="userResultMap">
-		select * from SYS_USER 
-		where 1=1
-		<if test="USERNAME!=null and PASSWORD!=null">
-		and USERNAME = #{USERNAME} and PASSWORD=#{PASSWORD}
-		</if>
-		<if test="USER_ID!=null and USER_ID>0">
-		and USER_ID = #{USER_ID}
+	<select id="getInfoByRegionCode" parameterType="pd" resultType="pd">
+		select  
+		   REGION_CODE,
+		   P_REGION_CODE,
+		   REGION_NAME,
+		   WEATHER_CODE
+		from SYS_REGION
+		    where 1=1
+		<if test="REGION_CODE!=null and REGION_CODE!=null">
+		    and P_REGION_CODE = #{REGION_CODE}  
+		</if> 
+		<if test="REGION_CODE==null">
+		    and P_REGION_CODE is null
 		</if>
 	</select>
 	

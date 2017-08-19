@@ -26,21 +26,37 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
       <div class="modal-body">
              <form class="form-horizontal" action="${ctx}/tbaddress/tbAddressController/edit.do" role="form" name="Form" id="editForm" method="post">
            	 <input type="hidden" name="F_ADDRESS_UID" id="F_ADDRESS_UID" value="${pd.F_ADDRESS_UID}"/>
-		  
-		     
-		
-					       <div class="form-group">
-						          <label class="col-sm-2 control-label">地区:</label>
-						          <div class="col-sm-10">  
-						             <input type="text" readOnly="readOnly" class="form-control" id="F_DIQU"  name="F_DIQU"  value="${pd.F_DIQU}"  placeholder="��������地区" title="地区">
-						          </div>  
-						       </div>
+		     <input type="hidden" class="form-control" id="F_USER_ID"  name="F_USER_ID"  value="${pd.F_USER_ID}"  placeholder="请填写用户账号" title="用户账号">
+		   
+		   
 					       <div class="form-group">
 						          <label class="col-sm-2 control-label">用户账号:</label>
 						          <div class="col-sm-10">  
-						             <input type="text" readOnly="readOnly" class="form-control" id="F_USER_ID"  name="F_USER_ID"  value="${pd.F_USER_ID}"  placeholder="��������用户账号" title="用户账号">
+						             <input type="text" readOnly="readOnly" class="form-control" id="F_UserName"  name="F_UserName"  value="${pd.F_UserName}"  placeholder="用户账号" title="用户账号">
 						          </div>  
 						       </div>
+						       
+						     <div class="form-group" >
+							  <label class="col-sm-2 control-label no-padding-right">
+									城市：<span class="required-indicator">*</span>
+								</label>
+								<div class="col-sm-2" >
+									 <select  disabled="disabled" datatype="*" nullmsg = "请选择所在的省！"  style="width: 150px;border:1px solid #ddd;" name="PROVINCE" id="F_PROVINCE" fieldname="F_PROVINCE"  class="col-xs-11 col-sm-11" onchange="checkProvince(this)" >
+									 <!-- <option>&nbsp;&nbsp;选择省&nbsp;&nbsp;</option>  -->
+									 </select>
+								</div>
+								<div class="col-sm-2"  >
+									 <select  disabled="disabled" datatype="*" nullmsg = "请选择所在的地级市！"  style="width: 150px;border:1px solid #ddd;overflow-y:scroll;" name="F_CITY" id="F_CITY"  fieldname="F_CITY"  class="col-xs-11 col-sm-11" onchange="checkCity(this);">
+									   <option  >&nbsp;&nbsp;&nbsp;&nbsp;地级市&nbsp;&nbsp;</option>
+									 </select>
+								</div>
+								<div class="col-sm-2"  >
+									 <select  disabled="disabled" datatype="*" nullmsg = "请选择所在的市、县、区！"  style="width: 150px;border:1px solid #ddd;overflow-y:scroll;"  name="F_DISTRICT" id="F_DISTRICT" fieldname="F_DISTRICT" onchange="checkContry(this);" class="col-xs-11 col-sm-11" >
+									  <option value="" >&nbsp;&nbsp;&nbsp;&nbsp;市、县、区&nbsp;&nbsp;</option>
+									 </select>
+								</div>
+						    </div>
+						    
 					       <div class="form-group">
 						          <label class="col-sm-2 control-label">详细地址:</label>
 						          <div class="col-sm-10">  
@@ -72,12 +88,7 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
 						          </div>  
 						       </div>
 						 
-	      <div class="form-group">
-	           <div id="dndArea" class="placeholder"> </div>
-		      <label class="col-sm-2 control-label">图片:</label>
-		       <div class="col-sm-9"  id="detail-pictures"> 
-		      </div>
-		    </div> 
+	       
     </form>
     
      
@@ -103,6 +114,11 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
  <script type="text/javascript">
  
  $(function(){ 
+
+	 $("#PROVINCE").empty();
+	 $("#PROVINCE").append("<option>&nbsp;&nbsp;选择省&nbsp;&nbsp;</option>");
+	 initSelect($("#F_PROVINCE"),"");
+	 
 	 init();
  });
  
@@ -111,6 +127,51 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
 		    language: "zh-CN",
 		    autoclose: true
    });
+
+
+  function checkProvince(obj){ 
+		 console.info(obj);
+	     var selectVal = $(obj).val();
+	     console.info(selectVal); 
+	     $("#F_CITY").empty();
+	     $("#F_CITY").append("<option>&nbsp;&nbsp;&nbsp;&nbsp;地级市&nbsp;&nbsp;</option>");
+	     initSelect($("#F_CITY"),selectVal);
+	     $("#F_DISTRICT").empty();
+	     $("#F_DISTRICT").append("<option value=''>&nbsp;&nbsp;&nbsp;&nbsp;市、县、区&nbsp;&nbsp;</option>");
+	     
+	 }
+
+	 function checkCity(obj){ 
+	     var selectVal = $(obj).val();
+	     console.info(selectVal);
+	     $("#F_DISTRICT").empty();
+	     $("#F_DISTRICT").append("<option value=''>&nbsp;&nbsp;&nbsp;&nbsp;市、县、区&nbsp;&nbsp;</option>");
+	     initSelect($("#F_DISTRICT"),selectVal);
+	 }
+
+	 function checkContry(obj){
+	 }
+	 
+
+	 function initSelect(selectObj,REGION_CODE){
+		 $.ajax({
+				url : "${ctx}/sysregion/sysRegionController/getInfoByRegionCode.do",
+				data : {REGION_CODE:REGION_CODE},
+				cache : false,
+				async :	false,
+				dataType : "json",  
+				type : 'post',
+				success : function(response) {
+					console.info(response);
+					var data = response.data;
+					console.info(data); 
+					data.forEach(function(ele,index){
+						selectObj.append("<option value='"+ele.REGION_CODE+"'>"+ele.REGION_NAME+"</option>");   
+					});
+				}
+			}); 
+	 }
+	 
      
  
  function init(){ 
@@ -135,14 +196,21 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
 	function setValue(obj){  
 			     $("#F_DIQU").val(obj.F_DIQU); 
 			     $("#F_USER_ID").val(obj.F_USER_ID); 
+			     $("#F_UserName").val(obj.F_UserName); 
 			     $("#F_ADDRESS_DETAIL").val(obj.F_ADDRESS_DETAIL); 
 			     $("#F_POSTAL_CODE").val(obj.F_POSTAL_CODE); 
 			     $("#F_RECEIVE_NAME").val(obj.F_RECEIVE_NAME); 
 			     $("#F_RECEIVE_MOBILE").val(obj.F_RECEIVE_MOBILE); 
-			     $("#CREATE_DATE").val(obj.CREATE_DATE); 
-						 
-		
-		getPicFile("TB_ADDRESS",obj.F_ADDRESS_UID);
+			     $("#CREATE_DATE").val(obj.CREATE_DATE);  
+			     
+			     
+			     $("#F_PROVINCE").val(obj.F_PROVINCE);
+			     $("#F_PROVINCE").change();
+			     
+			     $("#F_CITY").val(obj.F_CITY);
+			     $("#F_CITY").change();
+			     
+			     $("#F_DISTRICT").val(obj.F_DISTRICT); 
     }
 	
 	function getPicFile(table,table_uid_value){

@@ -107,6 +107,11 @@ public class TbAddressController extends BaseController {
 		return ra;
 	}
 	
+ 
+	
+	
+	
+	
 	/**
 	 * edit
 	 */
@@ -115,7 +120,8 @@ public class TbAddressController extends BaseController {
 	public ResultAction edit(HttpServletRequest request) throws Exception{
 	    ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
-		pd = this.getPageData(); 
+		pd = this.getPageData();  
+		pd.put("UPDATE_DATE", new Date());
 	    tbAddressService.edit(pd); 
 	     String[] PICTURES_IDs = request.getParameterValues("PICTURES_ID");
 		if(!"".equals(PICTURES_IDs)&&PICTURES_IDs!=null){

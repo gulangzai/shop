@@ -25,21 +25,37 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
       <div class="modal-body">
              <form class="form-horizontal" action="${ctx}/tbaddress/tbAddressController/edit.do" role="form" name="Form" id="editForm" method="post">
            	 <input type="hidden" name="F_ADDRESS_UID" id="F_ADDRESS_UID" value="${pd.F_ADDRESS_UID}"/>
-		  
-		     
-		
-					       <div class="form-group">
-						          <label class="col-sm-2 control-label">地区:</label>
-						          <div class="col-sm-10">  
-						              <input type="text" class="form-control" id="F_DIQU"  name="F_DIQU"  value="${pd.F_DIQU}"  placeholder="请填写地区" title="地区">
-						          </div>  
-						       </div>
+		     <input type="hidden" class="form-control" id="F_USER_ID"  name="F_USER_ID"  value="${pd.F_USER_ID}"  placeholder="请填写用户账号" title="用户账号">
+		      
 					       <div class="form-group">
 						          <label class="col-sm-2 control-label">用户账号:</label>
 						          <div class="col-sm-10">  
-						              <input type="text" class="form-control" id="F_USER_ID"  name="F_USER_ID"  value="${pd.F_USER_ID}"  placeholder="请填写用户账号" title="用户账号">
+						              <input type="text" class="form-control" id="F_UserName"  name="F_UserName"  value="${pd.F_UserName}"  placeholder="请填写用户账号" title="用户账号">
 						          </div>  
 						       </div>
+						       
+						    
+						     <div class="form-group" >
+							  <label class="col-sm-2 control-label no-padding-right">
+									城市：<span class="required-indicator">*</span>
+								</label>
+								<div class="col-sm-2" >
+									 <select  datatype="*" nullmsg = "请选择所在的省！"  style="width: 150px;border:1px solid #ddd;" name="F_PROVINCE" id="F_PROVINCE" fieldname="F_PROVINCE"  class="col-xs-11 col-sm-11" onchange="checkProvince(this)" >
+									 <!-- <option>&nbsp;&nbsp;选择省&nbsp;&nbsp;</option>  -->
+									 </select>
+								</div>
+								<div class="col-sm-2"  >
+									 <select  datatype="*" nullmsg = "请选择所在的地级市！"  style="width: 150px;border:1px solid #ddd;overflow-y:scroll;" name="F_CITY" id="F_CITY"  fieldname="F_CITY"  class="col-xs-11 col-sm-11" onchange="checkCity(this);">
+									   <option  >&nbsp;&nbsp;&nbsp;&nbsp;地级市&nbsp;&nbsp;</option>
+									 </select>
+								</div>
+								<div class="col-sm-2"  >
+									 <select  datatype="*" nullmsg = "请选择所在的市、县、区！"  style="width: 150px;border:1px solid #ddd;overflow-y:scroll;"  name="F_DISTRICT" id="F_DISTRICT" fieldname="F_DISTRICT" onchange="checkContry(this);" class="col-xs-11 col-sm-11" >
+									  <option value="" >&nbsp;&nbsp;&nbsp;&nbsp;市、县、区&nbsp;&nbsp;</option>
+									 </select>
+								</div>
+						    </div>
+						       
 					       <div class="form-group">
 						          <label class="col-sm-2 control-label">详细地址:</label>
 						          <div class="col-sm-10">  
@@ -64,12 +80,7 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
 						              <input type="text" class="form-control" id="F_RECEIVE_MOBILE"  name="F_RECEIVE_MOBILE"  value="${pd.F_RECEIVE_MOBILE}"  placeholder="请填写手机号" title="手机号">
 						          </div>  
 						       </div>
-						     <div class="form-group">
-						          <label class="col-sm-2 control-label">创建时间:</label>
-						          <div class="col-sm-4">  
-						             <input type="text" class="form-control CREATE_DATE" id="CREATE_DATE"  name="CREATE_DATE"  value="${pd.CREATE_DATE}"  placeholder="锟斤拷锟斤拷锟斤拷锟斤拷创建时间" title="创建时间">
-						          </div>  
-						       </div>
+						     
 						 
     </form>
      
@@ -97,16 +108,64 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
  <script type="text/javascript">
  
  $(function(){ 
+
+	 $("#PROVINCE").empty();
+	 $("#PROVINCE").append("<option>&nbsp;&nbsp;选择省&nbsp;&nbsp;</option>");
+	 initSelect($("#F_PROVINCE"),"");
+	 
 	 init();
 	 
 	  $(".CREATE_DATE").datepicker({
 	        format: 'yyyy-mm-dd',
 		    language: "zh-CN",
 		    autoclose: true
-     });
-	 
-	 
+     }); 
  });
+
+ function checkProvince(obj){ 
+	 console.info(obj);
+     var selectVal = $(obj).val();
+     console.info(selectVal); 
+     $("#F_CITY").empty();
+     $("#F_CITY").append("<option>&nbsp;&nbsp;&nbsp;&nbsp;地级市&nbsp;&nbsp;</option>");
+     initSelect($("#F_CITY"),selectVal);
+     $("#F_DISTRICT").empty();
+     $("#F_DISTRICT").append("<option value=''>&nbsp;&nbsp;&nbsp;&nbsp;市、县、区&nbsp;&nbsp;</option>");
+     
+ }
+
+ function checkCity(obj){ 
+     var selectVal = $(obj).val();
+     console.info(selectVal);
+     $("#F_DISTRICT").empty();
+     $("#F_DISTRICT").append("<option value=''>&nbsp;&nbsp;&nbsp;&nbsp;市、县、区&nbsp;&nbsp;</option>");
+     initSelect($("#F_DISTRICT"),selectVal);
+ }
+
+ function checkContry(obj){
+ }
+ 
+
+ function initSelect(selectObj,REGION_CODE){
+	 $.ajax({
+			url : "${ctx}/sysregion/sysRegionController/getInfoByRegionCode.do",
+			data : {REGION_CODE:REGION_CODE},
+			cache : false,
+			async :	false,
+			dataType : "json",  
+			type : 'post',
+			success : function(response) {
+				console.info(response);
+				var data = response.data;
+				console.info(data); 
+				data.forEach(function(ele,index){
+					selectObj.append("<option value='"+ele.REGION_CODE+"'>"+ele.REGION_NAME+"</option>");   
+				});
+			}
+		}); 
+ }
+
+ 
  
  function init(){ 
 		var data1={F_ADDRESS_UID:'${pd.F_ADDRESS_UID}'};
@@ -128,70 +187,28 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
    
 	
 	function setValue(obj){  
+		        console.info(obj);
 			     $("#F_DIQU").val(obj.F_DIQU); 
 			     $("#F_USER_ID").val(obj.F_USER_ID); 
+			     $("#F_UserName").val(obj.F_UserName); 
 			     $("#F_ADDRESS_DETAIL").val(obj.F_ADDRESS_DETAIL); 
 			     $("#F_POSTAL_CODE").val(obj.F_POSTAL_CODE); 
 			     $("#F_RECEIVE_NAME").val(obj.F_RECEIVE_NAME); 
 			     $("#F_RECEIVE_MOBILE").val(obj.F_RECEIVE_MOBILE); 
-			     $("#CREATE_DATE").val(obj.CREATE_DATE); 
-						 
-		
-		getPicFile("TB_ADDRESS",obj.F_ADDRESS_UID);
+			     $("#CREATE_DATE").val(obj.CREATE_DATE);  
+
+
+			     
+			     $("#F_PROVINCE").val(obj.F_PROVINCE);
+			     $("#F_PROVINCE").change();
+			     
+			     $("#F_CITY").val(obj.F_CITY);
+			     $("#F_CITY").change();
+			     
+			     $("#F_DISTRICT").val(obj.F_DISTRICT); 
+			   
     }
-	
-	function getPicFile(table,table_uid_value){
-		$.ajax({
-			url : "${ctx}/tbPicturesController/getPicture.do?TABLE="+table+"&TABLE_UID_VALUE="+table_uid_value,
-			//data : data1,
-			cache : false,
-			async :	false,
-			dataType : "json",  
-			type : 'post',
-			success : function(response) {
-				console.info(response);
-				//var resultobj = defaultJson.dealResultJson(response.msg);
-				$("#pictures").empty();
-				response.forEach(function(ele,index){
-					$("#pictures")
-					.append($('<div class="col-sm-4" id="'+ele.PICTURES_ID+'"><img src="<%=rootFile%>/'+ele.PATH+'"  width="100%" height="180px"><p><button class="btn btn-default"  onclick="deletePic(\''+ele.PICTURES_ID+'\',\''+table+'\',\''+table_uid_value+'\')">x</button></p></div>')); 
-					$("#editForm").append($('<input type="hidden" name="PICTURES_ID" id="'+ele.PICTURES_ID+'_input"  value="'+ele.PICTURES_ID+'"/>'));
-				});
-				
-			}
-		});  
-	}
-	
-	function deletePic(PICTURES_ID,table,table_uid_value){
-		
-		$.ajax({
-			url : "${ctx}/tbPicturesController/delete.do?PICTURES_ID="+PICTURES_ID,
-			//data : data1,
-			cache : false,
-			async :	false,
-			dataType : "json",  
-			type : 'post',
-			success : function(response) {
-				if(!response.iserror){
-					if(table_uid_value!=''&&table_uid_value!='undefined'){
-						//getPicFile(table,table_uid_value);
-					}else{
-						
-					} 
-					var pic = "#"+PICTURES_ID; 
-					$(pic).remove(); 
-					//<input type="hidden" name="PICTURES_ID" id="PICTURES_ID" />
-					var p_input = "#"+PICTURES_ID+"_input";
-					console.info($(p_input));
-					//$("#editForm").remove($(p_input));
-					$(p_input).remove();
-					
-				} 
-				
-			}
-		});  
-	}
-	
+  
 	//update
 	function update(){
 		 
@@ -205,7 +222,7 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
 			success : function(response) {
 				 console.info(typeof response);
 				 if(!response.iserror){
-					alert("上传成功");
+					xAlert("信息提示","保存成功",1);
 					$("#editClose").click();
 					$("#INDEX_Form").submit();
 				} 
