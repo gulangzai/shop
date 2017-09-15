@@ -144,7 +144,8 @@ public class TbProductController extends BaseController {
 		
 		HttpServletRequest request = this.getRequest();
 		Map properties = request.getParameterMap();
-		logger.info(properties);
+		logger.info(properties.get("F_COLOR"));
+		logger.info(((String[])properties.get("F_COLOR"))[0]);
 		String[] colors = (String[])properties.get("F_COLOR");
 		String F_PARENT_SKU = CommonUtil.sku();
 		if(colors.length>0){
