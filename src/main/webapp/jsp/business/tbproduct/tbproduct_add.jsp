@@ -48,6 +48,30 @@ String rootFileApp = request.getScheme()+"://"+request.getServerName()+":8088/ap
  
 			<div class="form-group">
 			
+			 <label class="col-sm-2 control-label">商品颜色:</label>
+	           <div class="col-sm-4">  
+	           		<input type="checkbox" name="F_COLOR" value="black">黑
+	             	<input type="checkbox" name="F_COLOR" value="white">白
+	             	<input type="checkbox" name="F_COLOR" value="red">红
+	             	<input type="checkbox" name="F_COLOR" value="green">绿
+	             	<input type="checkbox" name="F_COLOR" value="yellow">黄
+	             	<input type="checkbox" name="F_COLOR" value="blue">蓝
+	             	<input type="checkbox" name="F_COLOR" value="orange">橙
+	             
+	           </div>
+	           
+	          <label class="col-sm-2 control-label">商品尺寸:</label>
+	           <div class="col-sm-4">  
+	             <input type="text"  class="form-control"  name="F_SIZE" id="F_SIZE" value="${pd.F_REAL_PRICE}" maxlength="32" placeholder="这里输入尺寸" title="商品尺寸"/>
+	           </div>
+	          
+	           
+	       </div>
+	       
+	         &nbsp;&nbsp;&nbsp;
+ 
+			<div class="form-group">
+			
 			 <label class="col-sm-2 control-label">商品展示价:</label>
 	           <div class="col-sm-4">  
 	              <input type="text"  class="form-control"  name="F_SHOW_PRICE" id="F_SHOW_PRICE" value="${pd.F_SHOW_PRICE}" maxlength="32" placeholder="这里输入商品展示价" title="商品展示价"/>

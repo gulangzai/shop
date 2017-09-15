@@ -1,8 +1,9 @@
 package com.shop.util;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -53,6 +54,16 @@ public class CommonUtil {
 		   	System.out.println("对象的类型："+classname);
  
 		return sourceObj;
+	}
+	
+	public static String sku(){
+		int hashCodeV = UUID.randomUUID().toString().hashCode();
+		System.out.println(hashCodeV);
+		if (hashCodeV < 0) // 有可能是负数
+			hashCodeV = -hashCodeV;
+		Random random = new Random();
+		String randomCode4 = random.nextInt(9) + "" + random.nextInt(9) + "" + random.nextInt(9) + "" + random.nextInt(9);
+		return randomCode4 + String.format("%012d", hashCodeV);
 	}
 	
 	

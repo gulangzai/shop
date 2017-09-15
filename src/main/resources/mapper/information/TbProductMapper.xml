@@ -8,7 +8,6 @@
 		    
 		insert into TB_PRODUCT(
 			F_PRODUCTNAME,	
-			F_PRODUCTPIC,
 			F_PRODUCTDESC,	
 			F_SHOW_PRICE,
 			F_PRICE,	
@@ -32,7 +31,6 @@
 			F_COLOR
 		) values (
 			#{F_ProductName},
-			#{F_PRODUCTPIC},	
 			#{F_PRODUCTDESC},	
 			#{F_SHOW_PRICE},
 			#{F_PRICE},	
@@ -53,7 +51,7 @@
 			#{F_PATH7},
 			#{F_PATH8},
 			#{F_SIZE},
-			F_COLOR
+			#{F_COLOR}
 		)
 		
 		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="F_PRODUCT_ID">

@@ -39,6 +39,8 @@ import com.lanbao.base.ResultAction;
 import com.shop.business.pictures.service.PicturesService;
 import com.shop.business.standard.service.StandardService;
 import com.shop.business.tbproduct.service.TbProductService;
+import com.shop.util.CommonUtil;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -129,7 +131,7 @@ public class TbProductController extends BaseController {
 	@RequestMapping(value="/save")
 	@ResponseBody
 	public ResultAction save() throws Exception{
-		logBefore(logger, "鏂板TProductController");
+		//logBefore(logger, "鏂板TProductController");
 		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //鏍￠獙鏉冮檺
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
@@ -137,40 +139,98 @@ public class TbProductController extends BaseController {
 		//pd.put("TPRODUCTCONTROLLER_ID", this.get32UUID());	//涓婚敭
 		String f_StandardName = pd.getString("F_StandardName");
 		pd.put("F_ProductTime", new Date());
-		int productId = tbProductService.save(pd);
+		logger.debug("测试...."+JSONObject.fromObject(pd));
+	//	
 		
 		HttpServletRequest request = this.getRequest();
 		Map properties = request.getParameterMap();
-		String[] F_StandardNames = (String[]) properties.get("F_StandardName[]"); 
-		String[] F_StandardValues = (String[]) properties.get("F_StandardValue[]"); 
-		String[] F_XUHAOs = (String[]) properties.get("F_XUHAO[]"); 
-		if(F_StandardNames!=null){
-			for(int i=0;i<F_StandardNames.length;i++){
-				PageData pds = new PageData();
-				pds.put("F_StandardName", F_StandardNames[i]);
-				pds.put("F_StandardValue", F_StandardValues[i]);
-				pds.put("F_XUHAO", F_XUHAOs[i]);
-				pds.put("F_PRODUCT_ID",productId);
-				standardService.save(pds);
-			} 
+		logger.info(properties);
+		String[] colors = (String[])properties.get("F_COLOR");
+		String F_PARENT_SKU = CommonUtil.sku();
+		if(colors.length>0){
+			for(String color : colors){
+				pd.put("F_COLOR", color);
+				pd.put("F_SIZE", properties.get("F_SIZE"));
+				pd.put("F_PARENT_SKU",F_PARENT_SKU);
+				if(null != properties.get("F_SIZE") && !properties.get("F_SIZE").toString().equals("")){
+					pd.put("F_SKU",F_PARENT_SKU+"_"+color+"_"+properties.get("F_SIZE"));	
+				}else{
+					pd.put("F_SKU",F_PARENT_SKU+"_"+color);
+				}
+				
+				int productId = tbProductService.save(pd);
+				
+				String[] F_StandardNames = (String[]) properties.get("F_StandardName[]"); 
+				String[] F_StandardValues = (String[]) properties.get("F_StandardValue[]"); 
+				String[] F_XUHAOs = (String[]) properties.get("F_XUHAO[]"); 
+				if(F_StandardNames!=null){
+					for(int i=0;i<F_StandardNames.length;i++){
+						PageData pds = new PageData();
+						pds.put("F_StandardName", F_StandardNames[i]);
+						pds.put("F_StandardValue", F_StandardValues[i]);
+						pds.put("F_XUHAO", F_XUHAOs[i]);
+						pds.put("F_PRODUCT_ID",productId);
+						standardService.save(pds);
+					} 
+				}
+				
+				String[] PICTURES_IDs = request.getParameterValues("PICTURES_ID");
+				if(!"".equals(PICTURES_IDs)&&PICTURES_IDs!=null){
+					for(int i=0;i<PICTURES_IDs.length;i++){
+						//存图片
+						pd.put("PICTURES_ID", PICTURES_IDs[i]);
+						PageData picture = picturesService.findById(pd); 
+						picture.put("TABLE_NAME", "TB_PRODUCT");			 
+						picture.put("TABLE_UID_VALUE",productId);						  
+						picturesService.update(picture);
+					} 
+				}
+
+				
+			}
+		}else{
+			pd.put("F_COLOR", "");
+			pd.put("F_SIZE", properties.get("F_SIZE"));
+			pd.put("F_PARENT_SKU",F_PARENT_SKU);
+			if(null != properties.get("F_SIZE") && !properties.get("F_SIZE").toString().equals("")){
+				pd.put("F_SKU",F_PARENT_SKU+"_"+properties.get("F_SIZE"));
+			}else{
+				pd.put("F_SKU",F_PARENT_SKU);
+			}
+			
+			int productId = tbProductService.save(pd);
+			String[] F_StandardNames = (String[]) properties.get("F_StandardName[]"); 
+			String[] F_StandardValues = (String[]) properties.get("F_StandardValue[]"); 
+			String[] F_XUHAOs = (String[]) properties.get("F_XUHAO[]"); 
+			if(F_StandardNames!=null){
+				for(int i=0;i<F_StandardNames.length;i++){
+					PageData pds = new PageData();
+					pds.put("F_StandardName", F_StandardNames[i]);
+					pds.put("F_StandardValue", F_StandardValues[i]);
+					pds.put("F_XUHAO", F_XUHAOs[i]);
+					pds.put("F_PRODUCT_ID",productId);
+					standardService.save(pds);
+				} 
+			}
+			
+			String[] PICTURES_IDs = request.getParameterValues("PICTURES_ID");
+			if(!"".equals(PICTURES_IDs)&&PICTURES_IDs!=null){
+				for(int i=0;i<PICTURES_IDs.length;i++){
+					//存图片
+					pd.put("PICTURES_ID", PICTURES_IDs[i]);
+					PageData picture = picturesService.findById(pd); 
+					picture.put("TABLE_NAME", "TB_PRODUCT");			 
+					picture.put("TABLE_UID_VALUE",productId);						  
+					picturesService.update(picture);
+				} 
+			}
 		}
-		
-		String[] PICTURES_IDs = request.getParameterValues("PICTURES_ID");
-		if(!"".equals(PICTURES_IDs)&&PICTURES_IDs!=null){
-			for(int i=0;i<PICTURES_IDs.length;i++){
-				//存图片
-				pd.put("PICTURES_ID", PICTURES_IDs[i]);
-				PageData picture = picturesService.findById(pd); 
-				picture.put("TABLE_NAME", "TB_PRODUCT");			 
-				picture.put("TABLE_UID_VALUE",productId);						  
-				picturesService.update(picture);
-			} 
-		}
-	    
+	   
 		com.lanbao.base.ResultAction ra = new com.lanbao.base.ResultAction();
 		ra.setIserror(false);
 		return ra;
 	}
+	
 	
 	/**
 	 * 鍒犻櫎
@@ -254,10 +314,12 @@ public class TbProductController extends BaseController {
 	@ResponseBody
 	public ResultAction edit(HttpServletRequest request) throws Exception{
 		logBefore(logger, "淇敼TProductController");
+		
 		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //鏍￠獙鏉冮檺
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		 System.out.println("测试...."+JSONObject.fromObject(pd));
 		String PICTURES_ID = pd.getString("PICTURES_ID");
 		String F_PRODUCT_ID = pd.getString("F_PRODUCT_ID"); 
 		String[] PICTURES_IDs = request.getParameterValues("PICTURES_ID"); 
@@ -267,11 +329,12 @@ public class TbProductController extends BaseController {
 				pd.put("PICTURES_ID", PICTURES_IDs[i]);
 				PageData picture = picturesService.findById(pd); 
 				picture.put("TABLE_NAME", "TB_PRODUCT");			 
-				picture.put("TABLE_UID_VALUE",F_PRODUCT_ID);						  
+				picture.put("TABLE_UID_VALUE",F_PRODUCT_ID);	
+				
 				picturesService.update(picture);
 			} 
 		}
-		 
+		
 		tbProductService.edit(pd); 
 		com.lanbao.base.ResultAction ra = new com.lanbao.base.ResultAction();
 		ra.setIserror(false);
