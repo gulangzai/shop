@@ -7,8 +7,7 @@
 	<insert id="save" parameterType="pd"  keyProperty="F_PRODUCT_ID" useGeneratedKeys="true">
 		    
 		insert into TB_PRODUCT(
-			F_PRODUCTNAME,	
-			F_PRODUCTPIC,
+			F_PRODUCTNAME,	 
 			F_PRODUCTDESC,	
 			F_SHOW_PRICE,
 			F_PRICE,	
@@ -31,8 +30,7 @@
 			F_SIZE,
 			F_COLOR
 		) values (
-			#{F_ProductName},
-			#{F_PRODUCTPIC},	
+			#{F_ProductName}, 
 			#{F_PRODUCTDESC},	
 			#{F_SHOW_PRICE},
 			#{F_PRICE},	
