@@ -27,7 +27,9 @@
 			F_PATH5,
 			F_PATH6,
 			F_PATH7,
-			F_PATH8
+			F_PATH8,
+			F_SIZE,
+			F_COLOR
 		) values (
 			#{F_ProductName},
 			#{F_PRODUCTPIC},	
@@ -49,7 +51,9 @@
 			#{F_PATH5},
 			#{F_PATH6},
 			#{F_PATH7},
-			#{F_PATH8}
+			#{F_PATH8},
+			#{F_SIZE},
+			F_COLOR
 		)
 		
 		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="F_PRODUCT_ID">
